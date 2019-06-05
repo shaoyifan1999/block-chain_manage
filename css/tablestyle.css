@@ -1,0 +1,71 @@
+/*!*功能模块标题*!*/
+.bcTitle{
+    margin-left: 20px;
+}
+/*表格容器*/
+#bcContainer{
+    background-color: white;
+    margin:10px;
+    padding: 10px;
+    height: auto;
+    border-radius: 5px;
+    overflow-x: scroll;
+    position: relative;
+    border: #c5c5c5 2px solid;
+    box-shadow: 5px 5px 3px #b2b2b2;
+}
+.bcRecordList{
+    margin-top:50px;
+    width: 1000px;
+    clear: both;
+}
+/*表格字段样式*/
+.bcfield{
+    width: 1000px;
+    position: absolute;
+    top:10px;
+}
+.bcfield ul li{
+    /*display: inline-block;*/
+    float: left;
+    width: 150px;
+    font-size: larger;
+    font-weight: 600;
+    list-style: none;
+}
+.bcOneRecord{
+    height: 40px;
+    line-height: 40px;
+}
+.bcOneRecord ul li{
+    /*display: inline-block;*/
+    float: left;
+    width: 140px;
+    margin-right:10px;
+    font-size: larger;
+    overflow:hidden;
+    text-overflow: ellipsis;
+    white-space:nowrap;
+    border-top: black solid 1px;
+}
+.bcOneRecord ul li:nth-last-child(1){
+    width: 60px;
+    border-top: none;
+}
+.bcOneRecord ul li:nth-last-child(2){
+    width: 60px;
+    border-top: none;
+}
+.bcOneRecord ul li button{
+    height: 40px;
+    margin-top:3px;
+    margin-right:10px;
+    line-height: 30px;
+    background-color: white;
+    color: #0b93d5;
+    border: none;
+    outline:none;
+}
+.bcOneRecord ul li button:active{
+    color: #0bb4fa;
+}
