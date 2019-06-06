@@ -414,6 +414,13 @@
         </div>
         <!--容器-->
         <div id="bcContainer">
+            <!--功能操作-->
+            <div class="bcOperation">
+                <ul>
+                    <li><button onclick="showFillInfo()">添加</button></li>
+                    <li><button>操作2</button></li>
+                </ul>
+            </div>
             <!--字段-->
             <div class="bcfield">
                 <ul>
@@ -428,11 +435,11 @@
                 <!--一条数据-->
                 <div class="bcOneRecord">
                     <ul>
-                        <li>数据1</li>
+                        <li title="数据1">数据1</li>
                         <li title="长长长长长长长长长长数据2">长长长长长长长长长长数据2</li>
-                        <li>数据3</li>
-                        <li>数据4</li>
-                        <li>数据5</li>
+                        <li title="数据3">数据3</li>
+                        <li title="数据4">数据4</li>
+                        <li title="数据5">数据5</li>
                         <li><button>操作1</button></li>
                         <li><button>操作2</button></li>
                     </ul>
@@ -440,11 +447,11 @@
                 <!--一条数据-->
                 <div class="bcOneRecord">
                     <ul>
-                        <li>数据1</li>
+                        <li title="数据1">数据1</li>
                         <li title="长长长长长长长长长长数据2">长长长长长长长长长长数据2</li>
-                        <li>数据3</li>
-                        <li>数据4</li>
-                        <li>数据5</li>
+                        <li title="数据3">数据3</li>
+                        <li title="数据4">数据4</li>
+                        <li title="数据5">数据5</li>
                         <li><button>操作1</button></li>
                         <li><button>操作2</button></li>
                     </ul>
@@ -452,11 +459,11 @@
                 <!--一条数据-->
                 <div class="bcOneRecord">
                     <ul>
-                        <li>数据1</li>
+                        <li title="数据1">数据1</li>
                         <li title="长长长长长长长长长长数据2">长长长长长长长长长长数据2</li>
-                        <li>数据3</li>
-                        <li>数据4</li>
-                        <li>数据5</li>
+                        <li title="数据3">数据3</li>
+                        <li title="数据4">数据4</li>
+                        <li title="数据5">数据5</li>
                         <li><button>操作1</button></li>
                         <li><button>操作2</button></li>
                     </ul>
@@ -464,11 +471,11 @@
                 <!--一条数据-->
                 <div class="bcOneRecord">
                     <ul>
-                        <li>数据1</li>
+                        <li title="数据1">数据1</li>
                         <li title="长长长长长长长长长长数据2">长长长长长长长长长长数据2</li>
-                        <li>数据3</li>
-                        <li>数据4</li>
-                        <li>数据5</li>
+                        <li title="数据3">数据3</li>
+                        <li title="数据4">数据4</li>
+                        <li title="数据5">数据5</li>
                         <li><button>操作1</button></li>
                         <li><button>操作2</button></li>
                     </ul>
@@ -476,11 +483,11 @@
                 <!--一条数据-->
                 <div class="bcOneRecord">
                     <ul>
-                        <li>数据1</li>
+                        <li title="数据1">数据1</li>
                         <li title="长长长长长长长长长长数据2">长长长长长长长长长长数据2</li>
-                        <li>数据3</li>
-                        <li>数据4</li>
-                        <li>数据5</li>
+                        <li title="数据3">数据3</li>
+                        <li title="数据4">数据4</li>
+                        <li title="数据5">数据5</li>
                         <li><button>操作1</button></li>
                         <li><button>操作2</button></li>
                     </ul>
@@ -488,11 +495,11 @@
                 <!--一条数据-->
                 <div class="bcOneRecord">
                     <ul>
-                        <li>数据1</li>
+                        <li title="数据1">数据1</li>
                         <li title="长长长长长长长长长长数据2">长长长长长长长长长长数据2</li>
-                        <li>数据3</li>
-                        <li>数据4</li>
-                        <li>数据5</li>
+                        <li title="数据3">数据3</li>
+                        <li title="数据4">数据4</li>
+                        <li title="数据5">数据5</li>
                         <li><button>操作1</button></li>
                         <li><button>操作2</button></li>
                     </ul>
@@ -704,6 +711,27 @@
          immediately after the control sidebar -->
     <div class="control-sidebar-bg"></div>
 </div>
+<div id="bcFillInfoMask" display="">
+    <div id="bcFillInfoBox">
+        <h4 class="bcFillInfoHeader">填写信息</h4>
+        <form>
+            <div class="bcFilllInfo">
+                <text>字段1</text>
+                <input value="数据1"/>
+            </div>
+            <div class="bcFilllInfo">
+                <text>字段2</text>
+                <input value="数据2"/>
+            </div>
+            <div class="bcFilllInfo">
+                <text>字段3</text>
+                <input value="数据3"/>
+            </div>
+            <button class="bcFilllInfoBtn" type="submit">确认</button>
+            <button class="bcFilllInfoBtn" onclick="hideFillInfo()">取消</button>
+        </form>
+    </div>
+</div>
 <!-- ./wrapper -->
 
 <!-- jQuery 3 -->
@@ -743,5 +771,6 @@
 <script src="dist/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>
+<script src="js/index.js"></script>
 </body>
 </html>
