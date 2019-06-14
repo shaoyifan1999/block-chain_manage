@@ -28,6 +28,7 @@
     <!-- bootstrap wysihtml5 - text editor -->
     <link rel="stylesheet" href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
     <link rel="stylesheet" href="css/tablestyle.css">
+	<link rel="stylesheet" href="css/核心企业.css">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -329,7 +330,9 @@
             </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="应收账款.html"><i class="fa fa-circle-o"></i> 应收账款管理</a></li>
+                        <li><a href="pages/企业信息/实名认证.html"><i class="fa fa-circle-o"></i> 实名认证</a></li>
+                        <li><a href="pages/企业信息/查看信息.html"><i class="fa fa-circle-o"></i> 查看信息</a></li>
+                        <li><a href="pages/企业信息/修改信息.html"><i class="fa fa-circle-o"></i> 修改信息</a></li>
                     </ul>
                 </li>
                 <li class="treeview">
@@ -341,7 +344,8 @@
             </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="客户管理.html"><i class="fa fa-circle-o"></i> 提交授信申请</a></li>
+                        <li><a href="pages/授信业务/提交授信申请.html"><i class="fa fa-circle-o"></i> 提交授信申请</a></li>
+                        <li><a href="pages/授信业务/业务查询.html"><i class="fa fa-circle-o"></i> 业务查询</a></li>
                     </ul>
                 </li>
                 <li class="treeview">
@@ -353,7 +357,9 @@
             </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="风控管理.html"><i class="fa fa-circle-o"></i> 风控管理</a></li>
+                        <li><a href="pages/企业信息/实名认证.html"><i class="fa fa-circle-o"></i> 实名认证</a></li>
+                        <li><a href="pages/企业信息/查看信息.html"><i class="fa fa-circle-o"></i> 查看信息</a></li>
+                        <li><a href="pages/企业信息/修改信息.html"><i class="fa fa-circle-o"></i> 修改信息</a></li>
                     </ul>
                 </li>
                 <li class="treeview">
@@ -365,7 +371,8 @@
             </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="产品管理.html"><i class="fa fa-circle-o"></i> 产品管理</a></li>
+                        <li><a href="pages/授信业务/提交授信申请.html"><i class="fa fa-circle-o"></i> 提交授信申请</a></li>
+                        <li><a href="pages/授信业务/业务查询.html"><i class="fa fa-circle-o"></i> 业务查询</a></li>
                     </ul>
                 </li>
                 <li class="treeview">
@@ -376,7 +383,8 @@
             </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="审批流管理.html"><i class="fa fa-circle-o"></i> 审批流管理</a></li>
+                        <li><a href="pages/融资业务/融资申请.html"><i class="fa fa-circle-o"></i> 融资申请</a></li>
+                        <li><a href="pages/融资业务/业务查询.html"><i class="fa fa-circle-o"></i> 业务查询</a></li>
                     </ul>
                 </li>
                 <li class="treeview">
@@ -387,7 +395,7 @@
             </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="合同管理.html"><i class="fa fa-circle-o"></i> 合同管理</a></li>
+                        <li><a href="pages/资金管理/资金管理.html"><i class="fa fa-circle-o"></i> 资金管理</a></li>
                     </ul>
                 </li>
             </ul>
@@ -400,7 +408,7 @@
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <div class="bcTitle">
-            <h1>页面标题</h1>
+            <h1>核心企业</h1>
         </div>
         <!--容器-->
         <div id="bcContainer">
@@ -414,84 +422,98 @@
             <!--字段-->
             <div class="bcfield">
                 <ul>
-                    <li>字段1</li>
-                    <li>字段2</li>
-                    <li>字段3</li>
-                    <li>字段4</li>
-                    <li>字段5</li>
+                    <li>企业ID</li>
+                    <li>企业名称</li>
+                    <li>申请融资的供应商数量</li>
+                    <li>融资总金额</li>
+                    <li>待审核供应商数量</li>
+					<li>待确认订单数量</li>
+					<li>订单信息</li>
                 </ul>
             </div>
             <div class="bcRecordList">
                 <!--一条数据-->
                 <div class="bcOneRecord">
                     <ul>
-                        <li title="数据1">数据1</li>
-                        <li title="长长长长长长长长长长数据2">长长长长长长长长长长数据2</li>
-                        <li title="数据3">数据3</li>
-                        <li title="数据4">数据4</li>
-                        <li title="数据5">数据5</li>
-                        <li><button>操作1</button></li>
-                        <li><button>操作2</button></li>
+                        <li title="数据1">1000</li>
+                        <li title="长长长长长长长长长长数据2">企业的名称</li>
+                        <li title="数据3">5</li>
+                        <li title="数据4">100万</li>
+                        <li title="数据5">5</li>
+						<li title="数据5">100</li>
+						<li title="数据5">订单信息</li>
+                        <li><button onclick="showFillInfo()">编辑</button></li>
+         			    <li><button>删除</button></li>
                     </ul>
                 </div>
                 <!--一条数据-->
                 <div class="bcOneRecord">
                     <ul>
-                        <li title="数据1">数据1</li>
-                        <li title="长长长长长长长长长长数据2">长长长长长长长长长长数据2</li>
-                        <li title="数据3">数据3</li>
-                        <li title="数据4">数据4</li>
-                        <li title="数据5">数据5</li>
-                        <li><button>操作1</button></li>
-                        <li><button>操作2</button></li>
+                        <li title="数据1">1000</li>
+                        <li title="长长长长长长长长长长数据2">企业的名称</li>
+                        <li title="数据3">5</li>
+                        <li title="数据4">100万</li>
+                        <li title="数据5">5</li>
+						<li title="数据5">100</li>
+						<li title="数据5">订单信息</li>
+                        <li><button onclick="showFillInfo()">编辑</button></li>
+         			    <li><button>删除</button></li>
                     </ul>
                 </div>
                 <!--一条数据-->
                 <div class="bcOneRecord">
                     <ul>
-                        <li title="数据1">数据1</li>
-                        <li title="长长长长长长长长长长数据2">长长长长长长长长长长数据2</li>
-                        <li title="数据3">数据3</li>
-                        <li title="数据4">数据4</li>
-                        <li title="数据5">数据5</li>
-                        <li><button>操作1</button></li>
-                        <li><button>操作2</button></li>
+                        <li title="数据1">1000</li>
+                        <li title="长长长长长长长长长长数据2">企业的名称</li>
+                        <li title="数据3">5</li>
+                        <li title="数据4">100万</li>
+                        <li title="数据5">5</li>
+						<li title="数据5">100</li>
+						<li title="数据5">订单信息</li>
+                        <li><button onclick="showFillInfo()">编辑</button></li>
+         			    <li><button>删除</button></li>
                     </ul>
                 </div>
                 <!--一条数据-->
                 <div class="bcOneRecord">
                     <ul>
-                        <li title="数据1">数据1</li>
-                        <li title="长长长长长长长长长长数据2">长长长长长长长长长长数据2</li>
-                        <li title="数据3">数据3</li>
-                        <li title="数据4">数据4</li>
-                        <li title="数据5">数据5</li>
-                        <li><button>操作1</button></li>
-                        <li><button>操作2</button></li>
+                        <li title="数据1">1000</li>
+                        <li title="长长长长长长长长长长数据2">企业的名称</li>
+                        <li title="数据3">5</li>
+                        <li title="数据4">100万</li>
+                        <li title="数据5">5</li>
+						<li title="数据5">100</li>
+						<li title="数据5">订单信息</li>
+                        <li><button onclick="showFillInfo()">编辑</button></li>
+         			    <li><button>删除</button></li>
                     </ul>
                 </div>
                 <!--一条数据-->
                 <div class="bcOneRecord">
                     <ul>
-                        <li title="数据1">数据1</li>
-                        <li title="长长长长长长长长长长数据2">长长长长长长长长长长数据2</li>
-                        <li title="数据3">数据3</li>
-                        <li title="数据4">数据4</li>
-                        <li title="数据5">数据5</li>
-                        <li><button>操作1</button></li>
-                        <li><button>操作2</button></li>
+                        <li title="数据1">1000</li>
+                        <li title="长长长长长长长长长长数据2">企业的名称</li>
+                        <li title="数据3">5</li>
+                        <li title="数据4">100万</li>
+                        <li title="数据5">5</li>
+						<li title="数据5">100</li>
+						<li title="数据5">订单信息</li>
+                        <li><button onclick="showFillInfo()">编辑</button></li>
+         			    <li><button>删除</button></li>
                     </ul>
                 </div>
                 <!--一条数据-->
                 <div class="bcOneRecord">
                     <ul>
-                        <li title="数据1">数据1</li>
-                        <li title="长长长长长长长长长长数据2">长长长长长长长长长长数据2</li>
-                        <li title="数据3">数据3</li>
-                        <li title="数据4">数据4</li>
-                        <li title="数据5">数据5</li>
-                        <li><button>操作1</button></li>
-                        <li><button>操作2</button></li>
+                        <li title="数据1">1000</li>
+                        <li title="长长长长长长长长长长数据2">企业的名称</li>
+                        <li title="数据3">5</li>
+                        <li title="数据4">100万</li>
+                        <li title="数据5">5</li>
+						<li title="数据5">100</li>
+						<li title="数据5">订单信息</li>
+                        <li><button onclick="showFillInfo()">编辑</button></li>
+         			    <li><button>删除</button></li>
                     </ul>
                 </div>
             </div>
@@ -706,15 +728,31 @@
         <h4 class="bcFillInfoHeader">填写信息</h4>
         <form>
             <div class="bcFilllInfo">
-                <text>字段1</text>
+                <text>企业ID</text>
                 <input value="数据1"/>
             </div>
             <div class="bcFilllInfo">
-                <text>字段2</text>
+                <text>企业名称</text>
                 <input value="数据2"/>
             </div>
             <div class="bcFilllInfo">
-                <text>字段3</text>
+                <text>申请融资的供应商数量</text>
+                <input value="数据3"/>
+            </div>
+			<div class="bcFilllInfo">
+                <text>融资总金额</text>
+                <input value="数据3"/>
+            </div>
+			<div class="bcFilllInfo">
+                <text>待审核供应商数量</text>
+                <input value="数据3"/>
+            </div>
+			<div class="bcFilllInfo">
+                <text>待确认订单数量</text>
+                <input value="数据3"/>
+            </div>
+			<div class="bcFilllInfo">
+                <text>订单信息</text>
                 <input value="数据3"/>
             </div>
             <button class="bcFilllInfoBtn" type="submit">确认</button>
@@ -723,11 +761,9 @@
     </div>
 </div>
 <!-- ./wrapper -->
-<!-- Vue -->
-<script src="js/vue.js"></script>
+
 <!-- jQuery 3 -->
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
-
 <!-- jQuery UI 1.11.4 -->
 <script src="bower_components/jquery-ui/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -759,8 +795,10 @@
 <script src="bower_components/fastclick/lib/fastclick.js"></script>
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.min.js"></script>
+<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+<script src="dist/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>
-<script src="index.js"></script>
+<script src="js/index.js"></script>
 </body>
 </html>

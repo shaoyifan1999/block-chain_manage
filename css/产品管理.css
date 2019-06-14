@@ -4,7 +4,8 @@
 .bcOneRecord{
     width: 1250px;
 }
-.bcFilllInfo text{
+.bcFilllInfo span{
     width: 70px;
     display: inline-block;
+    font-weight: bolder;
 }
