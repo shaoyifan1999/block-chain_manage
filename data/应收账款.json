@@ -1,0 +1,28 @@
+{
+  "data": [
+    {
+      "ID": "1",
+      "financeID": "2",
+      "creditCom": "1",
+      "productName": "产品名称1",
+      "money": "1000",
+      "productID": "1"
+    },
+    {
+      "ID": "1",
+      "financeID": "2",
+      "creditCom": "1",
+      "productName": "产品名称1",
+      "money": "1000",
+      "productID": "1"
+    },
+    {
+      "ID": "1",
+      "financeID": "2",
+      "creditCom": "1",
+      "productName": "产品名称1",
+      "money": "1000",
+      "productID": "1"
+    }
+  ]
+}

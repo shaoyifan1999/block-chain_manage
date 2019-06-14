@@ -38,7 +38,7 @@
 
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
-<div class="wrapper">
+<div class="wrapper" v-cloak>
 
     <header class="main-header">
         <!-- Logo -->
@@ -415,71 +415,62 @@
             <!--功能操作-->
             <div class="bcOperation">
                 <ul>
-                    <li><button onclick="showFillInfo()">添加</button></li>
-                    <li><button>操作2</button></li>
+                    <li><button onclick="showFillInfo()">添加规则</button></li>
                 </ul>
             </div>
             <!--字段-->
-            <div class="bcfield">
+            <div class="bcfield" style="width:1100px;">
                 <ul>
-                    <li>ID</li>
-                    <li>准入规则</li>
+                    <li class="id">ID</li>
+                    <li class="value">准入规则</li>
                 </ul>
             </div>
             <div class="bcRecordList">
                 <!--一条数据-->
                 <div class="bcOneRecord">
-                    <ul>
-                        <li class="id" title="数据1">10086</li>
-                        <li class="value" title="长长长长长长长长长长数据2">注册资本不少于50万</li>
-                        <li><button onclick="showFillInfo()">编辑</button></li>
-            			<li><button>删除</button></li>
+                    <ul v-for="(item,index) in showItems" :key="item.id">
+                        <li title="ID" class="id">{{item.ID}}</li>
+                        <li title="准入规则" class="value">{{item.content}}</li>
+                        <li><button @click="showFillInfo(index)">编辑</button></li>
+                        <li><button @click="deleteItem(index)">删除</button></li>
                     </ul>
                 </div>
-                <!--一条数据-->
-                <div class="bcOneRecord">
-                    <ul>
-                        <li class="id" title="数据1">10086</li>
-                        <li class="value" title="长长长长长长长长长长数据2">注册资本不少于50万</li>
-                        <li><button onclick="showFillInfo()">编辑</button></li>
-            			<li><button>删除</button></li>
-                    </ul>
+            </div>
+
+            <div id="bcFillInfoMask_add">
+                <div id="bcFillInfoBox_add">
+                    <h4 class="bcFillInfoHeader">填写信息</h4>
+                    <form>
+                        <div class="bcFilllInfo">
+                            <span>ID</span>
+                            <input v-model="todo.ID"/>
+                        </div>
+                        <div class="bcFilllInfo">
+                            <span>准入规则</span>
+                            <input v-model="todo.content"/>
+                        </div>
+                        <button class="bcFilllInfoBtn" @click="add_confirm()">确认</button>
+                        <button class="bcFilllInfoBtn" @click="hideFillInfo_add()">取消</button>
+                    </form>
                 </div>
-                <!--一条数据-->
-                <div class="bcOneRecord">
-                    <ul>
-                        <li class="id" title="数据1">10086</li>
-                        <li class="value" title="长长长长长长长长长长数据2">注册资本不少于50万</li>
-                        <li><button onclick="showFillInfo()">编辑</button></li>
-            			<li><button>删除</button></li>
-                    </ul>
-                </div>
-                <!--一条数据-->
-                <div class="bcOneRecord">
-                    <ul>
-                        <li class="id" title="数据1">10086</li>
-                        <li class="value" title="长长长长长长长长长长数据2">注册资本不少于50万</li>
-                        <li><button onclick="showFillInfo()">编辑</button></li>
-            			<li><button>删除</button></li>
-                    </ul>
-                </div>
-                <!--一条数据-->
-                <div class="bcOneRecord">
-                    <ul>
-                        <li class="id" title="数据1">10086</li>
-                        <li class="value" title="长长长长长长长长长长数据2">注册资本不少于50万</li>
-                        <li><button onclick="showFillInfo()">编辑</button></li>
-            			<li><button>删除</button></li>
-                    </ul>
-                </div>
-                <!--一条数据-->
-                <div class="bcOneRecord">
-                    <ul>
-                        <li class="id" title="数据1">10086</li>
-                        <li class="value" title="长长长长长长长长长长数据2">注册资本不少于50万</li>
-                        <li><button onclick="showFillInfo()">编辑</button></li>
-            			<li><button>删除</button></li>
-                    </ul>
+            </div>
+
+
+            <div id="bcFillInfoMask" v-if="show">
+                <div id="bcFillInfoBox">
+                    <h4 class="bcFillInfoHeader">填写信息</h4>
+                    <form>
+                        <div class="bcFilllInfo">
+                            <span>ID</span>
+                            <input v-model="selected.ID"/>
+                        </div>
+                        <div class="bcFilllInfo">
+                            <span>准入规则</span>
+                            <input v-model="selected.content"/>
+                        </div>
+                        <button class="bcFilllInfoBtn" @click="confirm()">确认</button>
+                        <button class="bcFilllInfoBtn" @click="cancel()">取消</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -688,19 +679,6 @@
          immediately after the control sidebar -->
     <div class="control-sidebar-bg"></div>
 </div>
-<div id="bcFillInfoMask" display="">
-    <div id="bcFillInfoBox">
-        <h4 class="bcFillInfoHeader">填写信息</h4>
-        <form>
-            <div class="bcFilllInfo">
-                <text>准入规则</text>
-                <input value="注册资本不少于50万"/>
-            </div>
-            <button class="bcFilllInfoBtn" type="submit">确认</button>
-            <button class="bcFilllInfoBtn" onclick="hideFillInfo()">取消</button>
-        </form>
-    </div>
-</div>
 <!-- ./wrapper -->
 
 <!-- jQuery 3 -->
@@ -736,10 +714,13 @@
 <script src="bower_components/fastclick/lib/fastclick.js"></script>
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.min.js"></script>
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="dist/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
-<script src="dist/js/demo.js"></script>
-<script src="js/index.js"></script>
+<script src="vue.js"></script>
+<script src="index.js"></script>
+<script src="js/准入规则.js"></script>
 </body>
 </html>
+
+
+<!--<li class="id" title="数据1">10086</li>-->
+<!--<li class="value" title="长长长长长长长长长长数据2">注册资本不少于50万</li>-->

@@ -24,7 +24,8 @@ var wrapper = new Vue({
                 console.log(res);
                 self.showItems = res.data;
                 //储存到LocalStorage中
-                storeJson(res.data,this.page);
+                console.log(self.page);
+                storeJson(res.data,self.page);
             }).catch(function (err) {
                 console.log(err);
             })

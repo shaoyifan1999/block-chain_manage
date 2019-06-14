@@ -28,7 +28,7 @@
     <!-- bootstrap wysihtml5 - text editor -->
     <link rel="stylesheet" href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
     <link rel="stylesheet" href="css/tablestyle.css">
-	<link rel="stylesheet" href="css/核心企业.css">
+    <link rel="stylesheet" href="css/核心企业.css">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -416,105 +416,111 @@
             <div class="bcOperation">
                 <ul>
                     <li><button onclick="showFillInfo()">添加</button></li>
-                    <li><button>操作2</button></li>
                 </ul>
             </div>
             <!--字段-->
-            <div class="bcfield">
+            <div class="bcfield" >
                 <ul>
                     <li>企业ID</li>
                     <li>企业名称</li>
                     <li>申请融资的供应商数量</li>
                     <li>融资总金额</li>
                     <li>待审核供应商数量</li>
-					<li>待确认订单数量</li>
-					<li>订单信息</li>
+                    <li>待确认订单数量</li>
+                    <li>订单信息</li>
                 </ul>
             </div>
             <div class="bcRecordList">
                 <!--一条数据-->
                 <div class="bcOneRecord">
-                    <ul>
-                        <li title="数据1">1000</li>
-                        <li title="长长长长长长长长长长数据2">企业的名称</li>
-                        <li title="数据3">5</li>
-                        <li title="数据4">100万</li>
-                        <li title="数据5">5</li>
-						<li title="数据5">100</li>
-						<li title="数据5">订单信息</li>
-                        <li><button onclick="showFillInfo()">编辑</button></li>
-         			    <li><button>删除</button></li>
+                    <ul v-for="(item,index) in showItems" :key="item.id">
+                        <li title="企业ID">{{item.ID}}</li>
+                        <li title="企业名称">{{item.name}}</li>
+                        <li title="申请融资的供应商数量">{{item.applyNum}}</li>
+                        <li title="融资总金额">{{item.money}}</li>
+                        <li title="待审核供应商数量">{{item.pendingSupplyNum}}</li>
+                        <li title="待确认订单数量">{{item.pendingConfirmNum}}</li>
+                        <li title="订单信息">{{item.information}}</li>
+                        <li><button @click="showFillInfo(index)">编辑</button></li>
+                        <li><button @click="deleteItem(index)">删除</button></li>
                     </ul>
                 </div>
-                <!--一条数据-->
-                <div class="bcOneRecord">
-                    <ul>
-                        <li title="数据1">1000</li>
-                        <li title="长长长长长长长长长长数据2">企业的名称</li>
-                        <li title="数据3">5</li>
-                        <li title="数据4">100万</li>
-                        <li title="数据5">5</li>
-						<li title="数据5">100</li>
-						<li title="数据5">订单信息</li>
-                        <li><button onclick="showFillInfo()">编辑</button></li>
-         			    <li><button>删除</button></li>
-                    </ul>
+            </div>
+
+            <div id="bcFillInfoMask_add">
+                <div id="bcFillInfoBox_add">
+                    <h4 class="bcFillInfoHeader">填写信息</h4>
+                    <form>
+                        <div class="bcFilllInfo">
+                            <span>企业ID</span>
+                            <input v-model="todo.ID"/>
+                        </div>
+                        <div class="bcFilllInfo">
+                            <span>企业名称</span>
+                            <input v-model="todo.name"/>
+                        </div>
+                        <div class="bcFilllInfo">
+                            <span>申请融资的供应商数量</span>
+                            <input v-model="todo.applyNum"/>
+                        </div>
+                        <div class="bcFilllInfo">
+                            <span>融资总金额</span>
+                            <input v-model="todo.money"/>
+                        </div>
+                        <div class="bcFilllInfo">
+                            <span>待审核供应商数量</span>
+                            <input v-model="todo.pendingSupplyNum"/>
+                        </div>
+                        <div class="bcFilllInfo">
+                            <span>待确认订单数量</span>
+                            <input v-model="todo.pendingConfirmNum"/>
+                        </div>
+                        <div class="bcFilllInfo">
+                            <span>订单信息</span>
+                            <input v-model="todo.information"/>
+                        </div>
+                        <button class="bcFilllInfoBtn" @click="add_confirm()">确认</button>
+                        <button class="bcFilllInfoBtn" @click="hideFillInfo_add()">取消</button>
+                    </form>
                 </div>
-                <!--一条数据-->
-                <div class="bcOneRecord">
-                    <ul>
-                        <li title="数据1">1000</li>
-                        <li title="长长长长长长长长长长数据2">企业的名称</li>
-                        <li title="数据3">5</li>
-                        <li title="数据4">100万</li>
-                        <li title="数据5">5</li>
-						<li title="数据5">100</li>
-						<li title="数据5">订单信息</li>
-                        <li><button onclick="showFillInfo()">编辑</button></li>
-         			    <li><button>删除</button></li>
-                    </ul>
-                </div>
-                <!--一条数据-->
-                <div class="bcOneRecord">
-                    <ul>
-                        <li title="数据1">1000</li>
-                        <li title="长长长长长长长长长长数据2">企业的名称</li>
-                        <li title="数据3">5</li>
-                        <li title="数据4">100万</li>
-                        <li title="数据5">5</li>
-						<li title="数据5">100</li>
-						<li title="数据5">订单信息</li>
-                        <li><button onclick="showFillInfo()">编辑</button></li>
-         			    <li><button>删除</button></li>
-                    </ul>
-                </div>
-                <!--一条数据-->
-                <div class="bcOneRecord">
-                    <ul>
-                        <li title="数据1">1000</li>
-                        <li title="长长长长长长长长长长数据2">企业的名称</li>
-                        <li title="数据3">5</li>
-                        <li title="数据4">100万</li>
-                        <li title="数据5">5</li>
-						<li title="数据5">100</li>
-						<li title="数据5">订单信息</li>
-                        <li><button onclick="showFillInfo()">编辑</button></li>
-         			    <li><button>删除</button></li>
-                    </ul>
-                </div>
-                <!--一条数据-->
-                <div class="bcOneRecord">
-                    <ul>
-                        <li title="数据1">1000</li>
-                        <li title="长长长长长长长长长长数据2">企业的名称</li>
-                        <li title="数据3">5</li>
-                        <li title="数据4">100万</li>
-                        <li title="数据5">5</li>
-						<li title="数据5">100</li>
-						<li title="数据5">订单信息</li>
-                        <li><button onclick="showFillInfo()">编辑</button></li>
-         			    <li><button>删除</button></li>
-                    </ul>
+            </div>
+
+
+            <div id="bcFillInfoMask" v-if="show">
+                <div id="bcFillInfoBox">
+                    <h4 class="bcFillInfoHeader">填写信息</h4>
+                    <form>
+                        <div class="bcFilllInfo">
+                            <span>企业ID</span>
+                            <input v-model="selected.ID"/>
+                        </div>
+                        <div class="bcFilllInfo">
+                            <span>企业名称</span>
+                            <input v-model="selected.name"/>
+                        </div>
+                        <div class="bcFilllInfo">
+                            <span>申请融资的供应商数量</span>
+                            <input v-model="selected.applyNum"/>
+                        </div>
+                        <div class="bcFilllInfo">
+                            <span>融资总金额</span>
+                            <input v-model="selected.money"/>
+                        </div>
+                        <div class="bcFilllInfo">
+                            <span>待审核供应商数量</span>
+                            <input v-model="selected.pendingSupplyNum"/>
+                        </div>
+                        <div class="bcFilllInfo">
+                            <span>待确认订单数量</span>
+                            <input v-model="selected.pendingConfirmNum"/>
+                        </div>
+                        <div class="bcFilllInfo">
+                            <span>订单信息</span>
+                            <input v-model="selected.information"/>
+                        </div>
+                        <button class="bcFilllInfoBtn" @click="confirm()">确认</button>
+                        <button class="bcFilllInfoBtn" @click="cancel()">取消</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -723,43 +729,7 @@
          immediately after the control sidebar -->
     <div class="control-sidebar-bg"></div>
 </div>
-<div id="bcFillInfoMask" display="">
-    <div id="bcFillInfoBox">
-        <h4 class="bcFillInfoHeader">填写信息</h4>
-        <form>
-            <div class="bcFilllInfo">
-                <text>企业ID</text>
-                <input value="数据1"/>
-            </div>
-            <div class="bcFilllInfo">
-                <text>企业名称</text>
-                <input value="数据2"/>
-            </div>
-            <div class="bcFilllInfo">
-                <text>申请融资的供应商数量</text>
-                <input value="数据3"/>
-            </div>
-			<div class="bcFilllInfo">
-                <text>融资总金额</text>
-                <input value="数据3"/>
-            </div>
-			<div class="bcFilllInfo">
-                <text>待审核供应商数量</text>
-                <input value="数据3"/>
-            </div>
-			<div class="bcFilllInfo">
-                <text>待确认订单数量</text>
-                <input value="数据3"/>
-            </div>
-			<div class="bcFilllInfo">
-                <text>订单信息</text>
-                <input value="数据3"/>
-            </div>
-            <button class="bcFilllInfoBtn" type="submit">确认</button>
-            <button class="bcFilllInfoBtn" onclick="hideFillInfo()">取消</button>
-        </form>
-    </div>
-</div>
+
 <!-- ./wrapper -->
 
 <!-- jQuery 3 -->
@@ -799,6 +769,8 @@
 <script src="dist/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>
-<script src="js/index.js"></script>
+<script src="index.js"></script>
+<script src="vue.js"></script>
+<script src="js/核心企业.js"></script>
 </body>
 </html>

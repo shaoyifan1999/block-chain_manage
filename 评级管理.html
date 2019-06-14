@@ -28,7 +28,7 @@
     <!-- bootstrap wysihtml5 - text editor -->
     <link rel="stylesheet" href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
     <link rel="stylesheet" href="css/tablestyle.css">
-	<link rel="stylesheet" href="css/评级管理.css">
+    <link rel="stylesheet" href="css/评级管理.css">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -416,119 +416,131 @@
             <div class="bcOperation">
                 <ul>
                     <li><button onclick="showFillInfo()">添加</button></li>
-                    <li><button>操作2</button></li>
                 </ul>
             </div>
             <!--字段-->
-            <div class="bcfield">
+            <div class="bcfield" >
                 <ul>
                     <li>ID</li>
                     <li>评级编号</li>
                     <li>企业名称</li>
                     <li>企业类型</li>
                     <li>证件类型</li>
-					<li>证件号码</li>
-					<li>评级得分</li>
-					<li>风险限额</li>
-					<li>授信证书</li>
+                    <li>证件号码</li>
+                    <li>评级得分</li>
+                    <li>风险限额</li>
+                    <li>授信证书</li>
                 </ul>
             </div>
             <div class="bcRecordList">
                 <!--一条数据-->
                 <div class="bcOneRecord">
-                    <ul>
-                        <li title="数据1">10086</li>
-                        <li title="长长长长长长长长长长数据2">123</li>
-                        <li title="数据3">企业的名称</li>
-                        <li title="数据4">企业的类型</li>
-                        <li title="数据5">证件的类型</li>
-						<li title="数据6">证件的号码</li>
-						<li title="数据7">评级得分</li>
-						<li title="数据8">风险限额</li>
-						<li title="数据9"><a>授信证书的下载链接</a></li>
-                        <li><button onclick="showFillInfo()">编辑</button></li>
-           				 <li><button>删除</button></li>
+                    <ul v-for="(item,index) in showItems" :key="item.id">
+                        <li title="ID">{{item.ID}}</li>
+                        <li title="评级编号">{{item.evaluationID}}</li>
+                        <li title="企业名称">{{item.companyName}}</li>
+                        <li title="企业类型">{{item.companyType}}</li>
+                        <li title="证件类型">{{item.certificateType}}</li>
+                        <li title="证件号码">{{item.IDNumber}}</li>
+                        <li title="评级得分">{{item.evaluationNum}}</li>
+                        <li title="风险限额">{{item.limitationNum}}</li>
+                        <li title="授信证书"><a>{{item.certificateURL}}</a></li>
+                        <li><button @click="showFillInfo(index)">编辑</button></li>
+                        <li><button @click="deleteItem(index)">删除</button></li>
                     </ul>
                 </div>
-                <!--一条数据-->
-                <div class="bcOneRecord">
-                    <ul>
-                        <li title="数据1">10086</li>
-                        <li title="长长长长长长长长长长数据2">123</li>
-                        <li title="数据3">企业的名称</li>
-                        <li title="数据4">企业的类型</li>
-                        <li title="数据5">证件的类型</li>
-						<li title="数据6">证件的号码</li>
-						<li title="数据7">评级得分</li>
-						<li title="数据8">风险限额</li>
-						<li title="数据9"><a>授信证书的下载链接</a></li>
-                        <li><button onclick="showFillInfo()">编辑</button></li>
-           				 <li><button>删除</button></li>
-                    </ul>
+            </div>
+
+            <div id="bcFillInfoMask_add">
+                <div id="bcFillInfoBox_add">
+                    <h4 class="bcFillInfoHeader">填写信息</h4>
+                    <form>
+                        <div class="bcFilllInfo">
+                            <span>ID</span>
+                            <input v-model="todo.ID"/>
+                        </div>
+                        <div class="bcFilllInfo">
+                            <span>评级编号</span>
+                            <input v-model="todo.evaluationID"/>
+                        </div>
+                        <div class="bcFilllInfo">
+                            <span>企业名称</span>
+                            <input v-model="todo.companyName"/>
+                        </div>
+                        <div class="bcFilllInfo">
+                            <span>企业类型</span>
+                            <input v-model="todo.companyType"/>
+                        </div>
+                        <div class="bcFilllInfo">
+                            <span>证件类型</span>
+                            <input v-model="todo.certificateType"/>
+                        </div>
+                        <div class="bcFilllInfo">
+                            <span>证件号码</span>
+                            <input v-model="todo.IDNumber"/>
+                        </div>
+                        <div class="bcFilllInfo">
+                            <span>评级得分</span>
+                            <input v-model="todo.evaluationNum"/>
+                        </div>
+                        <div class="bcFilllInfo">
+                            <span>风险限额</span>
+                            <input v-model="todo.limitationNum"/>
+                        </div>
+                        <div class="bcFilllInfo">
+                            <span>授信证书</span>
+                            <input v-model="todo.certificateURL"/>
+                        </div>
+                        <button class="bcFilllInfoBtn" @click="add_confirm()">确认</button>
+                        <button class="bcFilllInfoBtn" @click="hideFillInfo_add()">取消</button>
+                    </form>
                 </div>
-                <!--一条数据-->
-                <div class="bcOneRecord">
-                    <ul>
-                        <li title="数据1">10086</li>
-                        <li title="长长长长长长长长长长数据2">123</li>
-                        <li title="数据3">企业的名称</li>
-                        <li title="数据4">企业的类型</li>
-                        <li title="数据5">证件的类型</li>
-						<li title="数据6">证件的号码</li>
-						<li title="数据7">评级得分</li>
-						<li title="数据8">风险限额</li>
-						<li title="数据9"><a>授信证书的下载链接</a></li>
-                        <li><button onclick="showFillInfo()">编辑</button></li>
-           				 <li><button>删除</button></li>
-                    </ul>
-                </div>
-                <!--一条数据-->
-                <div class="bcOneRecord">
-                    <ul>
-                        <li title="数据1">10086</li>
-                        <li title="长长长长长长长长长长数据2">123</li>
-                        <li title="数据3">企业的名称</li>
-                        <li title="数据4">企业的类型</li>
-                        <li title="数据5">证件的类型</li>
-						<li title="数据6">证件的号码</li>
-						<li title="数据7">评级得分</li>
-						<li title="数据8">风险限额</li>
-						<li title="数据9"><a>授信证书的下载链接</a></li>
-                        <li><button onclick="showFillInfo()">编辑</button></li>
-           				 <li><button>删除</button></li>
-                    </ul>
-                </div>
-                <!--一条数据-->
-                <div class="bcOneRecord">
-                    <ul>
-                        <li title="数据1">10086</li>
-                        <li title="长长长长长长长长长长数据2">123</li>
-                        <li title="数据3">企业的名称</li>
-                        <li title="数据4">企业的类型</li>
-                        <li title="数据5">证件的类型</li>
-						<li title="数据6">证件的号码</li>
-						<li title="数据7">评级得分</li>
-						<li title="数据8">风险限额</li>
-						<li title="数据9"><a>授信证书的下载链接</a></li>
-                        <li><button onclick="showFillInfo()">编辑</button></li>
-           				 <li><button>删除</button></li>
-                    </ul>
-                </div>
-                <!--一条数据-->
-                <div class="bcOneRecord">
-                    <ul>
-                        <li title="数据1">10086</li>
-                        <li title="长长长长长长长长长长数据2">123</li>
-                        <li title="数据3">企业的名称</li>
-                        <li title="数据4">企业的类型</li>
-                        <li title="数据5">证件的类型</li>
-						<li title="数据6">证件的号码</li>
-						<li title="数据7">评级得分</li>
-						<li title="数据8">风险限额</li>
-						<li title="数据9"><a>授信证书的下载链接</a></li>
-                        <li><button onclick="showFillInfo()">编辑</button></li>
-           				 <li><button>删除</button></li>
-                    </ul>
+            </div>
+
+
+            <div id="bcFillInfoMask" v-if="show">
+                <div id="bcFillInfoBox">
+                    <h4 class="bcFillInfoHeader">填写信息</h4>
+                    <form>
+                        <div class="bcFilllInfo">
+                            <span>ID</span>
+                            <input v-model="selected.ID"/>
+                        </div>
+                        <div class="bcFilllInfo">
+                            <span>评级编号</span>
+                            <input v-model="selected.evaluationID"/>
+                        </div>
+                        <div class="bcFilllInfo">
+                            <span>企业名称</span>
+                            <input v-model="selected.companyName"/>
+                        </div>
+                        <div class="bcFilllInfo">
+                            <span>企业名称</span>
+                            <input v-model="selected.companyType"/>
+                        </div>
+                        <div class="bcFilllInfo">
+                            <span>证件类型</span>
+                            <input v-model="selected.certificateType"/>
+                        </div>
+                        <div class="bcFilllInfo">
+                            <span>证件号码</span>
+                            <input v-model="selected.IDNumber"/>
+                        </div>
+                        <div class="bcFilllInfo">
+                            <span>评级得分</span>
+                            <input v-model="selected.evaluationNum"/>
+                        </div>
+                        <div class="bcFilllInfo">
+                            <span>风险限额</span>
+                            <input v-model="selected.limitationNum"/>
+                        </div>
+                        <div class="bcFilllInfo">
+                            <span>授信证书</span>
+                            <input v-model="selected.certificateURL"/>
+                        </div>
+                        <button class="bcFilllInfoBtn" @click="confirm()">确认</button>
+                        <button class="bcFilllInfoBtn" @click="cancel()">取消</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -737,39 +749,6 @@
          immediately after the control sidebar -->
     <div class="control-sidebar-bg"></div>
 </div>
-<div id="bcFillInfoMask">
-  <div id="bcFillInfoBox">
-    <h4 class="bcFillInfoHeader">填写信息</h4>
-    <form>
-      <div class="bcFilllInfo">
-        <text>企业名称</text>
-        <input value="企业的名称"/>
-      </div>
-      <div class="bcFilllInfo">
-        <text>企业类型</text>
-        <input value="企业的类型"/>
-      </div>
-      <div class="bcFilllInfo">
-        <text>证书类型</text>
-        <input value="证书的类型"/>
-      </div>
-      <div class="bcFilllInfo">
-        <text>证书号码</text>
-        <input value="证书的号码"/>
-      </div>
-      <div class="bcFilllInfo">
-        <text>评级得分</text>
-        <input value="5"/>
-      </div>
-      <div class="bcFilllInfo">
-        <text>风险限额</text>
-        <input value="100万"/>
-      </div>
-      <button class="bcFilllInfoBtn" type="submit">确认</button>
-      <button class="bcFilllInfoBtn" onclick="hideFillInfo()">取消</button>
-    </form>
-  </div>
-</div>
 <!-- ./wrapper -->
 
 <!-- jQuery 3 -->
@@ -805,10 +784,10 @@
 <script src="bower_components/fastclick/lib/fastclick.js"></script>
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.min.js"></script>
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="dist/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>
 <script src="js/index.js"></script>
+<script src="vue.js"></script>
+<script src="js/评级管理.js"></script>
 </body>
 </html>
