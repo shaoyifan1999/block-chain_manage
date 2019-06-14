@@ -1,6 +1,7 @@
 /*!*功能模块标题*!*/
 .bcTitle{
     margin-left: 20px;
+    margin-bottom: 40px;
 }
 /*表格容器*/
 #bcContainer{
@@ -11,8 +12,14 @@
     border-radius: 5px;
     overflow-x: scroll;
     position: relative;
-    border: #c5c5c5 2px solid;
-    box-shadow: 5px 5px 3px #b2b2b2;
+}
+/*滚动条样式*/
+#bcContainer::-webkit-scrollbar{
+    height:4px;
+}
+#bcContainer::-webkit-scrollbar-thumb{
+    border-radius: 10px;
+    background: #398db3;
 }
 .bcRecordList{
     margin-top:100px;
@@ -31,14 +38,15 @@
 }
 .bcOperation ul li button{
     height: 40px;
-    margin-top:3px;
-    margin-right:10px;
+    margin-top:5px;
+    margin-left:-20px;
     line-height: 30px;
     background-color: white;
     color: #0b93d5;
     border: none;
     outline:none;
-    font-size: larger;
+    font-size: 20px;
+    font-weight: 600;
 }
 .bcOperation ul li button:active{
     color: #0bb4fa;
@@ -58,19 +66,24 @@
     list-style: none;
 }
 .bcOneRecord{
-    height: 40px;
+    /*height: 80px;*/
     line-height: 40px;
+}
+.bcOneRecord ul{
+    height: 50px;
+    border-top: #ecf0f5 solid 1px;
+    clear: left;
 }
 .bcOneRecord ul li{
     /*display: inline-block;*/
     float: left;
     width: 140px;
     margin-right:10px;
-    font-size: larger;
+    font-size:18px ;
     overflow:hidden;
     text-overflow: ellipsis;
     white-space:nowrap;
-    border-top: black solid 1px;
+    margin-top: 10px;
 }
 .bcOneRecord ul li:nth-last-child(1){
     width: 60px;
@@ -82,7 +95,7 @@
 }
 .bcOneRecord ul li button{
     height: 40px;
-    margin-top:3px;
+    /*margin-top:0px;*/
     margin-right:10px;
     line-height: 30px;
     background-color: white;
@@ -92,6 +105,9 @@
 }
 .bcOneRecord ul li button:active{
     color: #0bb4fa;
+}
+[v-cloak] {
+    display: none;
 }
 /*填写数据信息的弹窗*/
 #bcFillInfoMask{
@@ -106,6 +122,27 @@
     z-index: 1000;
 }
 #bcFillInfoBox{
+    position: relative;
+    width:500px;
+    height: auto;
+    background-color: white;
+    margin:150px auto;
+    /*margin-top:100px;*/
+    border-radius: 5px;
+    padding: 20px;
+}
+#bcFillInfoMask_add{
+    visibility: hidden ;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background-color: rgba(44, 64, 90, 0.3);
+    height: 100%;
+    z-index: 1000;
+}
+#bcFillInfoBox_add  {
     position: relative;
     width:500px;
     height: auto;
@@ -141,5 +178,5 @@
     color: #0bb4fa;
 }
 /*.bcFillInfoHeader{*/
-    /**/
+/**/
 /*}*/

@@ -29,6 +29,7 @@
   <link rel="stylesheet" href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
   <link rel="stylesheet" href="css/tablestyle.css">
   <link rel="stylesheet" href="css/合同管理.css">
+  <script src="vue.js"></script>
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -36,9 +37,6 @@
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
 
-  <!-- Google Font -->
-  <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -419,7 +417,6 @@
       <div class="bcOperation">
         <ul>
           <li><button onclick="showFillInfo()">添加</button></li>
-          <li><button>操作2</button></li>
         </ul>
       </div>
       <!--字段-->
@@ -434,94 +431,100 @@
           <li>申请提交时间</li>
         </ul>
       </div>
+
       <div class="bcRecordList">
         <!--一条数据-->
         <div class="bcOneRecord">
-          <ul>
-            <li title="数据1">373492</li>
-            <li title="长长长长长长长长长长数据2">供应商</li>
-            <li title="数据3">授信机构</li>
-            <li title="数据4">100万</li>
-            <li title="数据5">资金方</li>
-            <li title="数据5">核心企业名称</li>
-            <li title="数据5">2019-05-17</li>
-            <li><button onclick="showFillInfo()">编辑</button></li>
-            <li><button>删除</button></li>
-          </ul>
-        </div>
-        <!--一条数据-->
-        <div class="bcOneRecord">
-          <ul>
-            <li title="数据1">373492</li>
-            <li title="长长长长长长长长长长数据2">供应商</li>
-            <li title="数据3">授信机构</li>
-            <li title="数据4">100万</li>
-            <li title="数据5">资金方</li>
-            <li title="数据5">核心企业名称</li>
-            <li title="数据5">2019-05-17</li>
-            <li><button onclick="showFillInfo()">编辑</button></li>
-            <li><button>删除</button></li>
-          </ul>
-        </div>
-        <!--一条数据-->
-        <div class="bcOneRecord">
-          <ul>
-            <li title="数据1">373492</li>
-            <li title="长长长长长长长长长长数据2">供应商</li>
-            <li title="数据3">授信机构</li>
-            <li title="数据4">100万</li>
-            <li title="数据5">资金方</li>
-            <li title="数据5">核心企业名称</li>
-            <li title="数据5">2019-05-17</li>
-            <li><button onclick="showFillInfo()">编辑</button></li>
-            <li><button>删除</button></li>
-          </ul>
-        </div>
-        <!--一条数据-->
-        <div class="bcOneRecord">
-          <ul>
-            <li title="数据1">373492</li>
-            <li title="长长长长长长长长长长数据2">供应商</li>
-            <li title="数据3">授信机构</li>
-            <li title="数据4">100万</li>
-            <li title="数据5">资金方</li>
-            <li title="数据5">核心企业名称</li>
-            <li title="数据5">2019-05-17</li>
-            <li><button onclick="showFillInfo()">编辑</button></li>
-            <li><button>删除</button></li>
-          </ul>
-        </div>
-        <!--一条数据-->
-        <div class="bcOneRecord">
-          <ul>
-            <li title="数据1">373492</li>
-            <li title="长长长长长长长长长长数据2">供应商</li>
-            <li title="数据3">授信机构</li>
-            <li title="数据4">100万</li>
-            <li title="数据5">资金方</li>
-            <li title="数据5">核心企业名称</li>
-            <li title="数据5">2019-05-17</li>
-
-            <li><button onclick="showFillInfo()">编辑</button></li>
-            <li><button>删除</button></li>
-          </ul>
-        </div>
-        <!--一条数据-->
-        <div class="bcOneRecord">
-          <ul>
-            <li title="数据1">373492</li>
-            <li title="长长长长长长长长长长数据2">供应商</li>
-            <li title="数据3">授信机构</li>
-            <li title="数据4">100万</li>
-            <li title="数据5">资金方</li>
-            <li title="数据5">核心企业名称</li>
-            <li title="数据5">2019-05-17</li>
-
-            <li><button onclick="showFillInfo()">编辑</button></li>
-            <li><button>删除</button></li>
+          <ul v-for="(item,index) in showItems" :key="item.id">
+            <li title="合同ID">{{item.ID}}</li>
+            <li title="供应商名称">{{item.supply}}</li>
+            <li title="授信机构名称">{{item.trust}}</li>
+            <li title="授信额度">{{item.number}}</li>
+            <li title="资金方名称">{{item.money}}</li>
+            <li title="核心企业名称">{{item.company}}</li>
+            <li title="申请提交时间">{{item.time}}</li>
+            <li><button @click="showFillInfo(index)">编辑</button></li>
+            <li><button @click="deleteItem(index)">删除</button></li>
           </ul>
         </div>
       </div>
+
+      <div id="bcFillInfoMask_add">
+        <div id="bcFillInfoBox_add">
+          <h4 class="bcFillInfoHeader">填写信息</h4>
+          <form>
+            <div class="bcFilllInfo">
+              <span>合同ID</span>
+              <input v-model="todo.ID"/>
+            </div>
+            <div class="bcFilllInfo">
+              <span>供应商名称</span>
+              <input v-model="todo.supply"/>
+            </div>
+            <div class="bcFilllInfo">
+              <span>授信机构名称</span>
+              <input v-model="todo.trust"/>
+            </div>
+            <div class="bcFilllInfo">
+              <span>授信额度</span>
+              <input v-model="todo.number"/>
+            </div>
+            <div class="bcFilllInfo">
+              <span>资金方名称</span>
+              <input v-model="todo.money"/>
+            </div>
+            <div class="bcFilllInfo">
+              <span>核心企业名称</span>
+              <input v-model="todo.company"/>
+            </div>
+            <div class="bcFilllInfo">
+              <span>申请提交时间</span>
+              <input v-model="todo.time"/>
+            </div>
+            <button class="bcFilllInfoBtn" @click="add_confirm()">确认</button>
+            <button class="bcFilllInfoBtn" @click="hideFillInfo_add()">取消</button>
+          </form>
+        </div>
+      </div>
+
+      <div id="bcFillInfoMask" v-if="show">
+        <div id="bcFillInfoBox">
+          <h4 class="bcFillInfoHeader">填写信息</h4>
+          <form>
+            <div class="bcFilllInfo">
+              <span>合同ID</span>
+              <input v-model="selected.ID"/>
+            </div>
+            <div class="bcFilllInfo">
+              <span>供应商名称</span>
+              <input v-model="selected.supply"/>
+            </div>
+            <div class="bcFilllInfo">
+              <span>授信机构名称</span>
+              <input v-model="selected.trust"/>
+            </div>
+            <div class="bcFilllInfo">
+              <span>授信额度</span>
+              <input v-model="selected.number"/>
+            </div>
+            <div class="bcFilllInfo">
+              <span>资金方名称</span>
+              <input v-model="selected.money"/>
+            </div>
+            <div class="bcFilllInfo">
+              <span>核心企业名称</span>
+              <input v-model="selected.company"/>
+            </div>
+            <div class="bcFilllInfo">
+              <span>申请提交时间</span>
+              <input v-model="selected.time"/>
+            </div>
+            <button class="bcFilllInfoBtn" type="submit" @click="confirm()">确认</button>
+            <button class="bcFilllInfoBtn" @click="cancel()">取消</button>
+          </form>
+        </div>
+      </div>
+
     </div>
     <!-- /.content -->
   </div>
@@ -808,6 +811,7 @@
 <script src="dist/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>
-<script src="js/index.js"></script>
+<script src="index.js"></script>
+<script src="js/合同管理.js"></script>
 </body>
 </html>
