@@ -4,6 +4,24 @@ function showFillInfo() {
 function hideFillInfo() {
     document.getElementById("bcFillInfoMask").style.visibility="hidden"
 }
+function gotoshenpiliu() {
+    window.location.href='审批流管理.html';
+}
+function gotochanpin() {
+    window.location.href='产品管理.html';
+}
+function gotohetong() {
+    window.location.href='合同管理.html';
+}
+function gotofengkong() {
+    window.location.href='风控管理.html';
+}
+function gotokehu() {
+    window.location.href='客户管理.html';
+}
+function gotoyingshouzhangkuan() {
+    window.location.href='应收账款管理.html';
+}
 //从文件中获取数据
 function getFileData(url) {
     return new Promise(function (resolve, reject) {

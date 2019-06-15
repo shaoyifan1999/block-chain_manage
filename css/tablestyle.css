@@ -1,3 +1,7 @@
+.treeview a{
+    cursor: pointer;
+}
+
 /*!*功能模块标题*!*/
 .bcTitle{
     margin-left: 20px;
