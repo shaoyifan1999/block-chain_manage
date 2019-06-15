@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:v-on="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -28,7 +28,8 @@
     <!-- bootstrap wysihtml5 - text editor -->
     <link rel="stylesheet" href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
     <link rel="stylesheet" href="css/tablestyle.css">
-	<link rel="stylesheet" href="css/供应商.css">
+    <link rel="stylesheet" href="css/供应商.css">
+    <script src="vue.js"></script>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -36,12 +37,9 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-    <!-- Google Font -->
-    <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
-<div class="wrapper">
+<div class="wrapper" v-cloak>
 
     <header class="main-header">
         <!-- Logo -->
@@ -348,7 +346,7 @@
                         <ul class="treeview-menu">
                             <li><a href="供应商.html"><i class="fa fa-circle-o"></i> 供应商</a></li>
                             <li><a href="核心企业.html"><i class="fa fa-circle-o"></i> 核心企业</a></li>
-                            <li><a href="用户表.html"><i class="fa fa-circle-o"></i> 用户表</a></li>
+                            <li><a href="用户管理.html"><i class="fa fa-circle-o"></i> 用户管理</a></li>
                             <li><a href="资金方.html"><i class="fa fa-circle-o"></i>资金方</a></li>
                         </ul>
                     </a>
@@ -393,7 +391,7 @@
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <div class="bcTitle">
-            <h1>供应商</h1>
+            <h1>供应商管理</h1>
         </div>
         <!--容器-->
         <div id="bcContainer">
@@ -401,11 +399,10 @@
             <div class="bcOperation">
                 <ul>
                     <li><button onclick="showFillInfo()">添加</button></li>
-                    <li><button>操作2</button></li>
                 </ul>
             </div>
             <!--字段-->
-            <div class="bcfield">
+            <div class="bcfield" style="width:1100px;">
                 <ul>
                     <li>供应商ID</li>
                     <li>供应商名称</li>
@@ -417,75 +414,76 @@
             <div class="bcRecordList">
                 <!--一条数据-->
                 <div class="bcOneRecord">
-                    <ul>
-                        <li title="数据1">1000</li>
-                        <li title="长长长长长长长长长长数据2">供应商的名称</li>
-                        <li title="数据3">5</li>
-                        <li title="数据4">100</li>
-                        <li title="数据5">200</li>
-                        <li><button onclick="showFillInfo()">编辑</button></li>
-         			    <li><button>删除</button></li>
+                    <ul v-for="(item,index) in showItems" :key="item.id">
+                        <li title="供应商ID">{{item.ID}}</li>
+                        <li title="供应商名称">{{item.name}}</li>
+                        <li title="授信数量">{{item.creditNum}}</li>
+                        <li title="待处理融资申请数量">{{item.pendingNum}}</li>
+                        <li title="已处理待还的融资申请数量">{{item.processedNum}}</li>
+                        <li><button @click="showFillInfo(index)">编辑</button></li>
+                        <li><button @click="deleteItem(index)">删除</button></li>
                     </ul>
                 </div>
-                <!--一条数据-->
-                <div class="bcOneRecord">
-                    <ul>
-                        <li title="数据1">1000</li>
-                        <li title="长长长长长长长长长长数据2">供应商的名称</li>
-                        <li title="数据3">5</li>
-                        <li title="数据4">100</li>
-                        <li title="数据5">200</li>
-                        <li><button onclick="showFillInfo()">编辑</button></li>
-         			    <li><button>删除</button></li>
-                    </ul>
+            </div>
+
+            <div id="bcFillInfoMask_add">
+                <div id="bcFillInfoBox_add">
+                    <h4 class="bcFillInfoHeader">填写信息</h4>
+                    <form>
+                        <div class="bcFilllInfo">
+                            <span>供应商ID</span>
+                            <input v-model="todo.ID"/>
+                        </div>
+                        <div class="bcFilllInfo">
+                            <span>供应商名称</span>
+                            <input v-model="todo.name"/>
+                        </div>
+                        <div class="bcFilllInfo">
+                            <span>授信数量</span>
+                            <input v-model="todo.creditNum"/>
+                        </div>
+                        <div class="bcFilllInfo">
+                            <span>待处理融资申请数量</span>
+                            <input v-model="todo.pendingNum"/>
+                        </div>
+                        <div class="bcFilllInfo">
+                            <span>已处理待还的融资申请数量</span>
+                            <input v-model="todo.processedNum"/>
+                        </div>
+                        <button class="bcFilllInfoBtn" @click="add_confirm()">确认</button>
+                        <button class="bcFilllInfoBtn" @click="hideFillInfo_add()">取消</button>
+                    </form>
                 </div>
-                <!--一条数据-->
-                <div class="bcOneRecord">
-                    <ul>
-                        <li title="数据1">1000</li>
-                        <li title="长长长长长长长长长长数据2">供应商的名称</li>
-                        <li title="数据3">5</li>
-                        <li title="数据4">100</li>
-                        <li title="数据5">200</li>
-                        <li><button onclick="showFillInfo()">编辑</button></li>
-         			    <li><button>删除</button></li>
-                    </ul>
-                </div>
-                <!--一条数据-->
-                <div class="bcOneRecord">
-                    <ul>
-                        <li title="数据1">1000</li>
-                        <li title="长长长长长长长长长长数据2">供应商的名称</li>
-                        <li title="数据3">5</li>
-                        <li title="数据4">100</li>
-                        <li title="数据5">200</li>
-                        <li><button onclick="showFillInfo()">编辑</button></li>
-         			    <li><button>删除</button></li>
-                    </ul>
-                </div>
-                <!--一条数据-->
-                <div class="bcOneRecord">
-                    <ul>
-                        <li title="数据1">1000</li>
-                        <li title="长长长长长长长长长长数据2">供应商的名称</li>
-                        <li title="数据3">5</li>
-                        <li title="数据4">100</li>
-                        <li title="数据5">200</li>
-                        <li><button onclick="showFillInfo()">编辑</button></li>
-         			    <li><button>删除</button></li>
-                    </ul>
-                </div>
-                <!--一条数据-->
-                <div class="bcOneRecord">
-                    <ul>
-                        <li title="数据1">1000</li>
-                        <li title="长长长长长长长长长长数据2">供应商的名称</li>
-                        <li title="数据3">5</li>
-                        <li title="数据4">100</li>
-                        <li title="数据5">200</li>
-                        <li><button onclick="showFillInfo()">编辑</button></li>
-         			    <li><button>删除</button></li>
-                    </ul>
+            </div>
+
+
+            <div id="bcFillInfoMask" v-if="show">
+                <div id="bcFillInfoBox">
+                    <h4 class="bcFillInfoHeader">填写信息</h4>
+                    <form>
+                        <div class="bcFilllInfo">
+                            <span>供应商ID</span>
+                            <input v-model="todo.ID"/>
+                        </div>
+                        <div class="bcFilllInfo">
+                            <span>供应商名称</span>
+                            <input v-model="todo.name"/>
+                        </div>
+                        <div class="bcFilllInfo">
+                            <span>授信数量</span>
+                            <input v-model="todo.creditNum"/>
+                        </div>
+                        <div class="bcFilllInfo">
+                            <span>待处理融资申请数量</span>
+                            <input v-model="todo.pendingNum"/>
+                        </div>
+                        <div class="bcFilllInfo">
+                            <span>已处理待还的融资申请数量</span>
+                            <input v-model="todo.processedNum"/>
+                        </div>
+                        <button class="bcFilllInfoBtn" @click="confirm()">确认</button>
+                        <button class="bcFilllInfoBtn" @click="cancel()">取消</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -694,35 +692,6 @@
          immediately after the control sidebar -->
     <div class="control-sidebar-bg"></div>
 </div>
-<div id="bcFillInfoMask" display="">
-    <div id="bcFillInfoBox">
-        <h4 class="bcFillInfoHeader">填写信息</h4>
-        <form>
-            <div class="bcFilllInfo">
-                <text>供应商ID</text>
-                <input value="数据1"/>
-            </div>
-            <div class="bcFilllInfo">
-                <text>供应商名称</text>
-                <input value="数据2"/>
-            </div>
-            <div class="bcFilllInfo">
-                <text>授信数量</text>
-                <input value="数据3"/>
-            </div>
-			<div class="bcFilllInfo">
-                <text>待处理融资申请数量</text>
-                <input value="数据3"/>
-            </div>
-			<div class="bcFilllInfo">
-                <text>已处理待还的融资申请数量</text>
-                <input value="数据3"/>
-            </div>
-            <button class="bcFilllInfoBtn" type="submit">确认</button>
-            <button class="bcFilllInfoBtn" onclick="hideFillInfo()">取消</button>
-        </form>
-    </div>
-</div>
 <!-- ./wrapper -->
 
 <!-- jQuery 3 -->
@@ -762,7 +731,7 @@
 <script src="dist/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>
-<script src="js/index.js"></script>
 <script src="index.js"></script>
+<script src="js/供应商.js"></script>
 </body>
 </html>

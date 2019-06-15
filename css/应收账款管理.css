@@ -8,3 +8,8 @@
     width: 70px;
     display: inline-block;
 }
+.bcFilllInfo span{
+    width: 70px;
+    display: inline-block;
+    font-weight: bolder;
+}

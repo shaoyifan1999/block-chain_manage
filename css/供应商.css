@@ -17,3 +17,8 @@
 .bcFilllInfo input{
     width: 60%;
 }
+.bcFilllInfo span{
+    width: 70px;
+    display: inline-block;
+    font-weight: bolder;
+}
