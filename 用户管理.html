@@ -322,81 +322,63 @@
             <ul class="sidebar-menu" data-widget="tree">
                 <li class="header"><b>主菜单</b></li>
                 <li class="treeview">
-                    <a href="#">
+                    <a onclick="gotoyingshouzhangkuan()">
                         <i class="fa fa-pie-chart"></i>
                         <span>应收账款管理</span>
-                        <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
+                        <!--<span class="pull-right-container">-->
+                        <!--<i class="fa fa-angle-left pull-right"></i>-->
+                        <!--</span>-->
                     </a>
-                    <ul class="treeview-menu">
-                        <li><a href="pages/企业信息/实名认证.html"><i class="fa fa-circle-o"></i> 实名认证</a></li>
-                        <li><a href="pages/企业信息/查看信息.html"><i class="fa fa-circle-o"></i> 查看信息</a></li>
-                        <li><a href="pages/企业信息/修改信息.html"><i class="fa fa-circle-o"></i> 修改信息</a></li>
-                    </ul>
+                    <!--<ul class="treeview-menu">-->
+                    <!--<li><a href="pages/企业信息/实名认证.html"><i class="fa fa-circle-o"></i> 实名认证</a></li>-->
+                    <!--<li><a href="pages/企业信息/查看信息.html"><i class="fa fa-circle-o"></i> 查看信息</a></li>-->
+                    <!--<li><a href="pages/企业信息/修改信息.html"><i class="fa fa-circle-o"></i> 修改信息</a></li>-->
+                    <!--</ul>-->
                 </li>
                 <li class="treeview">
-                    <a href="#">
+                    <a>
                         <i class="fa fa-laptop"></i>
                         <span>客户管理</span>
                         <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
+                        <ul class="treeview-menu">
+                            <li><a href="供应商.html"><i class="fa fa-circle-o"></i> 供应商</a></li>
+                            <li><a href="核心企业.html"><i class="fa fa-circle-o"></i> 核心企业</a></li>
+                            <li><a href="用户表.html"><i class="fa fa-circle-o"></i> 用户表</a></li>
+                            <li><a href="资金方.html"><i class="fa fa-circle-o"></i>资金方</a></li>
+                        </ul>
                     </a>
-                    <ul class="treeview-menu">
-                        <li><a href="pages/授信业务/提交授信申请.html"><i class="fa fa-circle-o"></i> 提交授信申请</a></li>
-                        <li><a href="pages/授信业务/业务查询.html"><i class="fa fa-circle-o"></i> 业务查询</a></li>
-                    </ul>
                 </li>
                 <li class="treeview">
-                    <a href="#">
+                    <a>
                         <i class="fa fa-pie-chart"></i>
                         <span>风控管理</span>
                         <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
+                        <ul class="treeview-menu">
+                            <li><a href="准入规则.html"><i class="fa fa-circle-o"></i> 准入规则</a></li>
+                            <li><a href="评级管理.html"><i class="fa fa-circle-o"></i> 评级管理</a></li>
+                        </ul>
                     </a>
-                    <ul class="treeview-menu">
-                        <li><a href="pages/企业信息/实名认证.html"><i class="fa fa-circle-o"></i> 实名认证</a></li>
-                        <li><a href="pages/企业信息/查看信息.html"><i class="fa fa-circle-o"></i> 查看信息</a></li>
-                        <li><a href="pages/企业信息/修改信息.html"><i class="fa fa-circle-o"></i> 修改信息</a></li>
-                    </ul>
                 </li>
                 <li class="treeview">
-                    <a href="#">
+                    <a onclick="gotochanpin()">
                         <i class="fa fa-laptop"></i>
                         <span>产品管理</span>
-                        <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
                     </a>
-                    <ul class="treeview-menu">
-                        <li><a href="pages/授信业务/提交授信申请.html"><i class="fa fa-circle-o"></i> 提交授信申请</a></li>
-                        <li><a href="pages/授信业务/业务查询.html"><i class="fa fa-circle-o"></i> 业务查询</a></li>
-                    </ul>
                 </li>
                 <li class="treeview">
-                    <a href="#">
-                        <i class="fa fa-edit"></i> <span>审批流管理</span>
-                        <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
+                    <a onclick="gotoshenpiliu()">
+                        <i class="fa fa-edit"></i>
+                        <span>审批流管理</span>
                     </a>
-                    <ul class="treeview-menu">
-                        <li><a href="pages/融资业务/融资申请.html"><i class="fa fa-circle-o"></i> 融资申请</a></li>
-                        <li><a href="pages/融资业务/业务查询.html"><i class="fa fa-circle-o"></i> 业务查询</a></li>
-                    </ul>
                 </li>
                 <li class="treeview">
-                    <a href="#">
+                    <a onclick="gotohetong()">
                         <i class="fa fa-table"></i> <span>合同管理</span>
-                        <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
                     </a>
-                    <ul class="treeview-menu">
-                        <li><a href="pages/资金管理/资金管理.html"><i class="fa fa-circle-o"></i> 资金管理</a></li>
-                    </ul>
                 </li>
             </ul>
             >
@@ -770,6 +752,7 @@
 <script src="dist/js/demo.js"></script>
 <script src="vue.js"></script>
 <script src="js/index.js"></script>
+<script src="index.js"></script>
 <script src="js/用户管理.js"></script>
 </body>
 </html>

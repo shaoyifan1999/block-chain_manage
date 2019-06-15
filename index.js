@@ -13,12 +13,6 @@ function gotochanpin() {
 function gotohetong() {
     window.location.href='合同管理.html';
 }
-function gotofengkong() {
-    window.location.href='风控管理.html';
-}
-function gotokehu() {
-    window.location.href='客户管理.html';
-}
 function gotoyingshouzhangkuan() {
     window.location.href='应收账款管理.html';
 }
