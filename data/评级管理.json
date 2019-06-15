@@ -1,0 +1,35 @@
+{
+  "data": [
+    {
+      "ID": "ID",
+      "evaluationID": "123",
+      "companyName": "企业的名称",
+      "companyType":"企业的类型",
+      "certificateType": "证件的类型",
+      "IDNumber": "证件的号码",
+      "evaluationNum": "评级得分",
+      "limitationNum":"风险限额",
+      "certificateURL":"授信证书的下载链接"
+    },{
+      "ID": "ID",
+      "evaluationID": "123",
+      "companyName": "企业的名称",
+      "companyType":"企业的类型",
+      "certificateType": "证件的类型",
+      "IDNumber": "证件的号码",
+      "evaluationNum": "评级得分",
+      "limitationNum":"风险限额",
+      "certificateURL":"授信证书的下载链接"
+    },{
+      "ID": "ID",
+      "evaluationID": "123",
+      "companyName": "企业的名称",
+      "companyType":"企业的类型",
+      "certificateType": "证件的类型",
+      "IDNumber": "证件的号码",
+      "evaluationNum": "评级得分",
+      "limitationNum":"风险限额",
+      "certificateURL":"授信证书的下载链接"
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "data": [
+    {
+      "ID": "10000",
+      "name": "1721小鲜肉",
+      "companyName": "北京航空航天大学",
+      "companyID": "123456",
+      "companyLocation": "北京",
+      "companyAddress": "北京市海淀区学院路",
+      "status":"正常"
+    },{
+      "ID": "10000",
+      "name": "1721小鲜肉",
+      "companyName": "北京航空航天大学",
+      "companyID": "123456",
+      "companyLocation": "北京",
+      "companyAddress": "北京市海淀区学院路",
+      "status":"正常"
+    },{
+      "ID": "10000",
+      "name": "1721小鲜肉",
+      "companyName": "北京航空航天大学",
+      "companyID": "123456",
+      "companyLocation": "北京",
+      "companyAddress": "北京市海淀区学院路",
+      "status":"正常"
+    }
+  ]
+}

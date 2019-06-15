@@ -7,7 +7,9 @@ var wrapper = new Vue({
         show:false,
         selected:{},
         index:-1,
-        todo:{}
+        todo:{},
+        page:"checkFlow",
+        dataUrl:"data/审批流管理.json"
     },
     created:function() {
         document.getElementById("bcFillInfoMask").style.visibility="visible";
@@ -15,15 +17,14 @@ var wrapper = new Vue({
     mounted:function () {
         console.log("creating");
         var self = this;
-        var url = "data/审批流管理.json";
+        var url = this.dataUrl;
         //如果没有读取过Json文件，那么获取本地文件的JSON数据并通过promise的异步操作，双向绑定到items中,并储存到LocalStorage
-        if (getLocalStorage("checkFlow")==null) {
-            console.log("fuck");
+        if (getLocalStorage(this.page)===null) {
             getFileData(url).then(function (res) {
                 console.log(res);
                 self.showItems = res.data;
                 //储存到LocalStorage中
-                storeJson(res.data,"checkFlow");
+                storeJson(res.data,self.page);
             }).catch(function (err) {
                 console.log(err);
             })
@@ -31,7 +32,7 @@ var wrapper = new Vue({
         //否则读取浏览器缓存
         else {
             console.log("getting localStorage");
-            this.showItems = getLocalStorage("checkFlow");
+            this.showItems = getLocalStorage(this.page);
         }
     },
     methods:{
@@ -53,14 +54,14 @@ var wrapper = new Vue({
         confirm:function () {
             this.showItems[this.index] = this.selected;
             console.log(this.showItems);
-            storeJson(this.showItems,"checkFlow");
+            storeJson(this.showItems,this.page);
             this.index = -1;
             this.selected = null;
             this.show = false;
         },
         add_confirm:function () {
             this.showItems.push(this.todo);
-            storeJson(this.showItems,"checkFlow");
+            storeJson(this.showItems,this.page);
             this.index = -1;
             this.todo = null;
             this.show = false;
@@ -75,7 +76,7 @@ var wrapper = new Vue({
                     i--;
                 }
             }
-            storeJson(this.showItems,"checkFlow");
+            storeJson(this.showItems,this.page);
             this.index = -1;
             this.selected = null;
             this.show = false;

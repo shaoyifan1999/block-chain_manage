@@ -1,0 +1,27 @@
+.bcfield{
+    width: 1450px;
+}
+.bcfield ul li{
+    width: 190px;
+}
+.bcOneRecord{
+    width: 1570px;
+}
+.bcOneRecord ul li{
+    width: 180px;
+}
+.bcFilllInfo text{
+    width: 100px;
+    display: inline-block;
+}
+.bcFilllInfo input{
+    width: 60%;
+}
+<<<<<<< HEAD
+=======
+.bcFilllInfo span{
+    width: 70px;
+    display: inline-block;
+    font-weight: bolder;
+}
+>>>>>>> 8fbd714f9a1a45314010562068f3a1fc3026ea54
