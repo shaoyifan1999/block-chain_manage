@@ -9,7 +9,8 @@ var wrapper = new Vue({
         index:-1,
         todo:{},
         page:"product",
-        dataUrl:"data/产品管理.json"
+        dataUrl:"data/产品管理.json",
+        deleteView:false
     },
     created:function() {
         document.getElementById("bcFillInfoMask").style.visibility="visible";
@@ -36,6 +37,26 @@ var wrapper = new Vue({
         }
     },
     methods:{
+        judgeData:function(json){
+            var length = 0;
+            if (json==null)
+            {
+                alert("输入不合法");
+                return false;
+            }
+            for( var key in json ){
+                length++;
+                if (json[key]==""||json[key]==null) {
+                    alert("输入不合法");
+                    return false;
+                }
+            }
+            if (length==0){
+                return false;
+                alert("输入不合法");
+            }
+            return true;
+        },
         showFillInfo: function(index) {
             this.index = index;
             this.selected =JSON.parse(JSON.stringify(this.showItems[index]));
@@ -52,23 +73,31 @@ var wrapper = new Vue({
             this.show = false;
         },
         confirm:function () {
-            this.showItems[this.index] = this.selected;
-            console.log(this.showItems);
-            storeJson(this.showItems,this.page);
-            this.index = -1;
-            this.selected = null;
-            this.show = false;
+            if (this.judgeData(this.selected)){
+                this.showItems[this.index] = this.selected;
+                console.log(this.showItems);
+                storeJson(this.showItems,this.page);
+                this.index = -1;
+                this.selected = null;
+                this.show = false;
+            }
         },
         add_confirm:function () {
-            this.showItems.push(this.todo);
-            storeJson(this.showItems,this.page);
-            this.index = -1;
-            this.todo = null;
-            this.show = false;
+            if (this.judgeData(this.todo)) {
+                this.showItems.push(this.todo);
+                storeJson(this.showItems, this.page);
+                this.index = -1;
+                this.todo = null;
+                this.show = false;
+            }
         },
         deleteItem:function (index) {
             this.index = index;
-            this.selected =JSON.parse(JSON.stringify(this.showItems[index]));
+            this.deleteView = true;
+
+        },
+        deleteConfirm:function () {
+            this.selected =JSON.parse(JSON.stringify(this.showItems[this.index]));
             console.log(this.selected.ID);
             for (var i = 0; i < this.showItems.length; ++i) {
                 if (this.showItems[i].ID == this.selected.ID) {
@@ -76,10 +105,15 @@ var wrapper = new Vue({
                     i--;
                 }
             }
+            this.deleteView = false;
             storeJson(this.showItems,this.page);
             this.index = -1;
             this.selected = null;
-            this.show = false;
+        },
+        deleteCancel:function () {
+            this.deleteView = false;
+            this.index = -1;
+            this.selected = null;
         }
     }
 });

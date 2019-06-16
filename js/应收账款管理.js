@@ -9,12 +9,17 @@ var wrapper = new Vue({
         index:-1,
         todo:{},
         page:"bill",
-        dataUrl:"data/应收账款.json"
+        dataUrl:"data/应收账款.json",
+        deleteView:false
     },
     created:function() {
         document.getElementById("bcFillInfoMask").style.visibility="visible";
     },
     mounted:function () {
+        var urlpara = this.parseToken();
+        if (urlpara.token!=undefined){
+            storeJson(urlpara,"urlpara");
+        }
         console.log("creating");
         var self = this;
         var url = this.dataUrl;
@@ -36,6 +41,41 @@ var wrapper = new Vue({
         }
     },
     methods:{
+        parseToken:function(){
+            var url = location.search;//获取页面所在路径
+            //获取url中"?"符后的字串
+            var theRequest = new Object();
+            if (url.indexOf("?") != -1) {
+                var str = url.substr(1);  //获取到路径携带的信息
+                strs = str.split("&"); //将携带信息分成一个数组(未知多少信息)
+                for(var i = 0; i < strs.length; i ++) {
+                    //theRequest[属性名]==值  组装成对象
+                    theRequest[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]);  //unescape()对通过 escape() 编码的字符串进行解码
+                }
+            }
+            console.log(theRequest);
+            return theRequest;
+        },
+        judgeData:function(json){
+            var length = 0;
+            if (json==null)
+            {
+                alert("输入不合法");
+                return false;
+            }
+            for( var key in json ){
+                length++;
+                if (json[key]==""||json[key]==null) {
+                    alert("输入不合法");
+                    return false;
+                }
+            }
+            if (length==0){
+                return false;
+                alert("输入不合法");
+            }
+            return true;
+        },
         showFillInfo: function(index) {
             this.index = index;
             this.selected =JSON.parse(JSON.stringify(this.showItems[index]));
@@ -52,23 +92,31 @@ var wrapper = new Vue({
             this.show = false;
         },
         confirm:function () {
-            this.showItems[this.index] = this.selected;
-            console.log(this.showItems);
-            storeJson(this.showItems,this.page);
-            this.index = -1;
-            this.selected = null;
-            this.show = false;
+            if (this.judgeData(this.selected)){
+                this.showItems[this.index] = this.selected;
+                console.log(this.showItems);
+                storeJson(this.showItems,this.page);
+                this.index = -1;
+                this.selected = null;
+                this.show = false;
+            }
         },
         add_confirm:function () {
-            this.showItems.push(this.todo);
-            storeJson(this.showItems,this.page);
-            this.index = -1;
-            this.todo = null;
-            this.show = false;
+            if (this.judgeData(this.todo)) {
+                this.showItems.push(this.todo);
+                storeJson(this.showItems, this.page);
+                this.index = -1;
+                this.todo = null;
+                this.show = false;
+            }
         },
         deleteItem:function (index) {
             this.index = index;
-            this.selected =JSON.parse(JSON.stringify(this.showItems[index]));
+            this.deleteView = true;
+
+        },
+        deleteConfirm:function () {
+            this.selected =JSON.parse(JSON.stringify(this.showItems[this.index]));
             console.log(this.selected.ID);
             for (var i = 0; i < this.showItems.length; ++i) {
                 if (this.showItems[i].ID == this.selected.ID) {
@@ -76,10 +124,15 @@ var wrapper = new Vue({
                     i--;
                 }
             }
+            this.deleteView = false;
             storeJson(this.showItems,this.page);
             this.index = -1;
             this.selected = null;
-            this.show = false;
+        },
+        deleteCancel:function () {
+            this.deleteView = false;
+            this.index = -1;
+            this.selected = null;
         }
     }
 });

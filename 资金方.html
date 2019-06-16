@@ -6,6 +6,7 @@
     <title>管理后台</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="icon" href="images/buaa.png" >
     <!-- Bootstrap 3.3.7 -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
     <!-- Font Awesome -->
@@ -44,9 +45,9 @@
         <!-- Logo -->
         <a href="index.html" class="logo">
             <!-- mini logo for sidebar mini 50x50 pixels -->
-            <span class="logo-mini"><b>4组</b></span>
+            <span class="logo-mini"><b>BU</b></span>
             <!-- logo for regular state and mobile devices -->
-            <span class="logo-lg">管理后台</span>
+            <span class="logo-lg">北航高利贷</span>
         </a>
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top">
@@ -314,7 +315,6 @@
         </nav>
     </header>
 
-
     <!-- Left side column. contains the logo and sidebar -->
     <aside class="main-sidebar">
         <section class="sidebar">
@@ -455,6 +455,13 @@
                 </div>
             </div>
 
+            <div class="bcdelInfoMask"v-cloak v-if="deleteView">
+                <div class="bcdelInfoBox" >
+                    <div>确认删除？</div>
+                    <button class="bcFilllInfoBtn" @click="deleteConfirm()">确认</button>
+                    <button class="bcFilllInfoBtn" @click="deleteCancel()">取消</button>
+                </div>
+            </div>
 
             <div id="bcFillInfoMask" v-if="show">
                 <div id="bcFillInfoBox">

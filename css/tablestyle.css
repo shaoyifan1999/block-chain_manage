@@ -181,6 +181,29 @@
 .bcFilllInfoBtn:active{
     color: #0bb4fa;
 }
+/*删除弹窗*/
+.bcdelInfoMask{
+    /*visibility:  hidden ;*/
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background-color: rgba(44, 64, 90, 0.3);
+    height: 100%;
+    z-index: 1000;
+}
+.bcdelInfoBox{
+    position: relative;
+    width:300px;
+    height: auto;
+    background-color: white;
+    margin:150px auto;
+    /*margin-top:100px;*/
+    border-radius: 5px;
+    padding: 20px;
+    text-align: center;
+}
 /*.bcFillInfoHeader{*/
 /**/
 /*}*/
