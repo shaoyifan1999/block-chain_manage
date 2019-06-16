@@ -2,28 +2,28 @@
   "data": [
     {
       "ID": "1",
-      "name": "产品名称1",
+      "name": "NMSL",
       "applyNum": "1",
-      "money": "2",
-      "pendingSupplyNum": "1000",
+      "money": "80,000",
+      "pendingSupplyNum": "3",
       "pendingConfirmNum": "1",
-      "information":"订单信息"
+      "information":"800件联名T恤"
     },{
-      "ID": "1",
-      "name": "产品名称1",
+      "ID": "2",
+      "name": "CLOT",
       "applyNum": "1",
-      "money": "2",
-      "pendingSupplyNum": "1000",
+      "money": "90,000",
+      "pendingSupplyNum": "4",
       "pendingConfirmNum": "1",
-      "information":"订单信息"
+      "information":"NMSL×CLOT"
     },{
-      "ID": "1",
-      "name": "产品名称1",
+      "ID": "3",
+      "name": "Tencent",
       "applyNum": "1",
-      "money": "2",
-      "pendingSupplyNum": "1000",
+      "money": "1,000,000",
+      "pendingSupplyNum": "2",
       "pendingConfirmNum": "1",
-      "information":"订单信息"
+      "information":"充钱就能变强"
     }
   ]
 }

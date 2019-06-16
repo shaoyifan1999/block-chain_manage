@@ -415,12 +415,12 @@
                 <!--一条数据-->
                 <div class="bcOneRecord">
                     <ul v-for="(item,index) in showItems" :key="item.id">
-                        <li title="ID">{{item.ID}}</li>
-                        <li title="融资业务编号">{{item.financeID}}</li>
-                        <li title="授信企业名称">{{item.creditCom}}</li>
-                        <li title="产品名称">{{item.productName}}</li>
-                        <li title="融资金额">{{item.money}}</li>
-                        <li title="产品ID">{{item.productID}}</li>
+                        <li :title="item.ID">{{item.ID}}</li>
+                        <li :title="item.financeID">{{item.financeID}}</li>
+                        <li :title="item.creditCom">{{item.creditCom}}</li>
+                        <li :title="item.productName">{{item.productName}}</li>
+                        <li :title="item.money">{{item.money}}</li>
+                        <li :title="item.productID">{{item.productID}}</li>
                         <li><button @click="showFillInfo(index)">编辑</button></li>
                         <li><button @click="deleteItem(index)">删除</button></li>
                     </ul>

@@ -418,15 +418,15 @@
                 <!--一条数据-->
                 <div class="bcOneRecord">
                     <ul v-for="(item,index) in showItems" :key="item.id">
-                        <li title="ID">{{item.ID}}</li>
-                        <li title="评级编号">{{item.evaluationID}}</li>
-                        <li title="企业名称">{{item.companyName}}</li>
-                        <li title="企业类型">{{item.companyType}}</li>
-                        <li title="证件类型">{{item.certificateType}}</li>
-                        <li title="证件号码">{{item.IDNumber}}</li>
-                        <li title="评级得分">{{item.evaluationNum}}</li>
-                        <li title="风险限额">{{item.limitationNum}}</li>
-                        <li title="授信证书"><a>{{item.certificateURL}}</a></li>
+                        <li :title="item.ID">{{item.ID}}</li>
+                        <li :title="item.evaluationID">{{item.evaluationID}}</li>
+                        <li :title="item.companyName">{{item.companyName}}</li>
+                        <li :title="item.companyType">{{item.companyType}}</li>
+                        <li :title="item.certificateType">{{item.certificateType}}</li>
+                        <li :title="item.IDNumber">{{item.IDNumber}}</li>
+                        <li :title="item.evaluationNum">{{item.evaluationNum}}</li>
+                        <li :title="item.limitationNum">{{item.limitationNum}}</li>
+                        <li :title="item.certificateURL"><a>{{item.certificateURL}}</a></li>
                         <li><button @click="showFillInfo(index)">编辑</button></li>
                         <li><button @click="deleteItem(index)">删除</button></li>
                     </ul>

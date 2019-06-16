@@ -413,22 +413,24 @@
           <li>状态</li>
         </ul>
       </div>
-      <div class="bcRecordList">
-        <!--一条数据-->
-        <div class="bcOneRecord">
-          <ul v-for="(item,index) in showItems" :key="item.id">
-            <li title="产品ID">{{item.ID}}</li>
-            <li title="产品名字">{{item.name}}</li>
-            <li title="类型">{{item.type}}</li>
-            <li title="金额">{{item.money}}</li>
-            <li title="期限">{{item.ddl}}</li>
-            <li title="还款方式">{{item.return}}</li>
-            <li title="状态">{{item.status}}</li>
-            <li><button @click="showFillInfo(index)">编辑</button></li>
-            <li><button @click="deleteItem(index)">删除</button></li>
-          </ul>
+
+
+        <div class="bcRecordList">
+            <!--一条数据-->
+            <div class="bcOneRecord">
+                <ul v-for="(item,index) in showItems" :key="item.id">
+                    <li :title="item.ID">{{item.ID}}</li>
+                    <li :title="item.name">{{item.name}}</li>
+                    <li :title="item.type">{{item.type}}</li>
+                    <li :title="item.money">{{item.money}}</li>
+                    <li :title="item.ddl">{{item.ddl}}</li>
+                    <li :title="item.return">{{item.return}}</li>
+                    <li :title="item.status">{{item.status}}</li>
+                    <li><button @click="showFillInfo(index)">编辑</button></li>
+                    <li><button @click="deleteItem(index)">删除</button></li>
+                </ul>
+            </div>
         </div>
-      </div>
 
       <div id="bcFillInfoMask_add">
         <div id="bcFillInfoBox_add">

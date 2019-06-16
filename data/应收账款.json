@@ -2,27 +2,27 @@
   "data": [
     {
       "ID": "1",
-      "financeID": "2",
-      "creditCom": "1",
-      "productName": "产品名称1",
-      "money": "1000",
+      "financeID": "1232",
+      "creditCom": "阳光授信",
+      "productName": "高利贷套餐1",
+      "money": "1,000,000",
       "productID": "1"
     },
     {
-      "ID": "1",
-      "financeID": "2",
-      "creditCom": "1",
-      "productName": "产品名称1",
-      "money": "1000",
-      "productID": "1"
+      "ID": "2",
+      "financeID": "1233",
+      "creditCom": "春雨授信",
+      "productName": "高利贷套餐2",
+      "money": "80,000",
+      "productID": "2"
     },
     {
-      "ID": "1",
-      "financeID": "2",
-      "creditCom": "1",
-      "productName": "产品名称1",
-      "money": "1000",
-      "productID": "1"
+      "ID": "3",
+      "financeID": "1235",
+      "creditCom": "正大授信",
+      "productName": "高利贷套餐2",
+      "money": "90,000",
+      "productID": "2"
     }
   ]
 }

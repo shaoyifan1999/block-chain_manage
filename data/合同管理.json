@@ -3,37 +3,37 @@
     {
       "ID": "1",
       "supply": "阿里巴巴",
-      "trust": "授信机构1",
-      "number": "100W",
+      "trust": "阳光授信",
+      "number": "100,000",
       "money": "Adidas",
-      "company": "Nike",
+      "company": "NMSL",
       "time": "2019-5-27"
     },
     {
       "ID": "2",
-      "supply": "阿里巴巴",
-      "trust": "授信机构2",
-      "number": "100W",
-      "money": "Adidas",
-      "company": "Nike",
+      "supply": "万达",
+      "trust": "春雨授信",
+      "number": "1,000,000",
+      "money": "Nike",
+      "company": "CLOT",
       "time": "2019-5-28"
     },
     {
       "ID": "3",
       "supply": "阿里巴巴",
-      "trust": "授信机构3",
-      "number": "100W",
-      "money": "Adidas",
-      "company": "Nike",
+      "trust": "正大授信",
+      "number": "80,000",
+      "money": "GUCCI",
+      "company": "京东",
       "time": "2019-5-29"
     },
     {
       "ID": "4",
-      "supply": "阿里巴巴",
-      "trust": "授信机构4",
-      "number": "100W",
-      "money": "Adidas",
-      "company": "Nike",
+      "supply": "万达",
+      "trust": "春雨授信",
+      "number": "90,000",
+      "money": "京东",
+      "company": "Tencent",
       "time": "2019-5-30"
     }
   ]
