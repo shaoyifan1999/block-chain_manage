@@ -7,6 +7,9 @@ var wrapper = new Vue({
         show:false,
         selected:{},
         index:-1,
+        ip:"http://114.115.240.16/",
+        token:localStorage.getItem("token"),
+        role:localStorage.getItem("role"),
         todo:{},
         page:"product",
         dataUrl:"data/产品管理.json",
@@ -16,25 +19,29 @@ var wrapper = new Vue({
         document.getElementById("bcFillInfoMask").style.visibility="visible";
     },
     mounted:function () {
-        console.log("creating");
         var self = this;
-        var url = this.dataUrl;
-        //如果没有读取过Json文件，那么获取本地文件的JSON数据并通过promise的异步操作，双向绑定到items中,并储存到LocalStorage
-        if (getLocalStorage(this.page)===null) {
-            getFileData(url).then(function (res) {
-                console.log(res);
-                self.showItems = res.data;
-                //储存到LocalStorage中
-                storeJson(res.data,self.page);
-            }).catch(function (err) {
-                console.log(err);
+        $(document).ready(function() {
+            $.ajax({
+                url: self.ip+"api/product/getAllProducts",
+                type: 'get',
+                success: function (res) {
+                    var data = res.data;
+                    console.log(data);
+                    for (var i = 0;i < data.length;i++){
+                        data[i].additional = JSON.parse(data[i].additional);
+                        Object.assign(data[i],data[i].additional);
+                        console.log(data[i].additional.type)
+                    }
+                    console.log(data);
+                    self.showItems = data;
+                },
+                fail: function (res) {
+                    console.log(res)
+                }
             })
-        }
-        //否则读取浏览器缓存
-        else {
-            console.log("getting localStorage");
-            this.showItems = getLocalStorage(this.page);
-        }
+        });
+        console.log("creating");
+
     },
     methods:{
         judgeData:function(json){
@@ -72,11 +79,64 @@ var wrapper = new Vue({
             this.selected = null;
             this.show = false;
         },
+        addPro:function(){
+            var self = this;
+            let sendData = self.todo;
+            sendData.additional = JSON.stringify({
+                "type":sendData.type,
+                "return":sendData.return,
+                "money":sendData.money
+            });
+            $.ajax({
+                url: self.ip+"api/product/insertProduct",
+                type: 'POST',
+                headers:{
+                    "Content-Type":"application/json",
+                    "token":self.token
+                },
+                data:JSON.stringify(sendData),
+                success: function (data) {
+                    console.log(data)
+                },
+                error:function(xhr,status,error){
+                    console.log(xhr);
+                    console.log(xhr.status);
+                    console.log(error);
+                }
+            })
+        },
+        updatePro:function(){
+            var self = this;
+            let sendData = self.showItems[self.index];
+            sendData.additional = JSON.stringify({
+                "type":sendData.type,
+                "return":sendData.return,
+                "money":sendData.money
+            });
+            sendData = JSON.stringify(sendData);
+            $.ajax({
+                url: self.ip+"api/product/updateProduct",
+                type: 'POST',
+                headers:{
+                    "Content-Type":"application/json",
+                    "token":self.token
+                },
+                data:sendData,
+                success: function (data) {
+                    console.log(data)
+                },
+                error:function(xhr,status,error){
+                    console.log(xhr);
+                    console.log(xhr.status);
+                    console.log(error);
+                }
+            })
+        },
         confirm:function () {
             if (this.judgeData(this.selected)){
                 this.showItems[this.index] = this.selected;
                 console.log(this.showItems);
-                storeJson(this.showItems,this.page);
+                this.updatePro();
                 this.index = -1;
                 this.selected = null;
                 this.show = false;
@@ -85,7 +145,7 @@ var wrapper = new Vue({
         add_confirm:function () {
             if (this.judgeData(this.todo)) {
                 this.showItems.push(this.todo);
-                storeJson(this.showItems, this.page);
+                this.addPro();
                 this.index = -1;
                 this.todo = null;
                 this.show = false;
@@ -94,13 +154,36 @@ var wrapper = new Vue({
         deleteItem:function (index) {
             this.index = index;
             this.deleteView = true;
-
+        },
+        deletePro:function(id){
+            var self = this;
+            console.log(id);
+            $.ajax({
+                url: self.ip+"api/product/deleteProduct",
+                type: 'POST',
+                headers:{
+                    "Content-Type":"application/json",
+                    "token":self.token
+                },
+                data:JSON.stringify({
+                    "id":id
+                }),
+                success: function (data) {
+                    console.log(data)
+                },
+                error:function(xhr,status,error){
+                    console.log(xhr);
+                    console.log(xhr.status);
+                    console.log(error);
+                }
+            })
         },
         deleteConfirm:function () {
             this.selected =JSON.parse(JSON.stringify(this.showItems[this.index]));
-            console.log(this.selected.ID);
+            console.log(this.selected.id);
+            this.deletePro(this.selected.id);
             for (var i = 0; i < this.showItems.length; ++i) {
-                if (this.showItems[i].ID == this.selected.ID) {
+                if (this.showItems[i].id == this.selected.id) {
                     this.showItems.splice(i,1);
                     i--;
                 }

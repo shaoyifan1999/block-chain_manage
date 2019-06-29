@@ -3,117 +3,60 @@ var wrapper = new Vue({
     data: {
         showItems:[],
         crtPage:1,
-        allItem:[],
-        show:false,
-        selected:{},
-        index:-1,
-        todo:{},
-        page:"contract",
-        dataUrl:"data/合同管理.json",
-        deleteView:false
-    },
-    created:function() {
-        document.getElementById("bcFillInfoMask").style.visibility="visible";
+        ip:"http://114.115.240.16/",
+        token:localStorage.getItem("token"),
+        role:localStorage.getItem("role")
     },
     mounted:function () {
         console.log("creating");
         var self = this;
-        var url = this.dataUrl;
-        //如果没有读取过Json文件，那么获取本地文件的JSON数据并通过promise的异步操作，双向绑定到items中,并储存到LocalStorage
-        if (getLocalStorage(this.page)===null) {
-            getFileData(url).then(function (res) {
-                console.log(res);
-                self.showItems = res.data;
-                //储存到LocalStorage中
-                storeJson(res.data,self.page);
-            }).catch(function (err) {
-                console.log(err);
+        $(document).ready(function() {
+            $.ajax({
+                url: self.ip+"api/financing/getFinancingByUserAndStatus",
+                type: 'POST',
+                headers:{
+                    "Content-Type":"application/json",
+                    "token":self.token
+                },
+                data:JSON.stringify({
+                    "status":3
+                }),
+                success: function (data) {
+                    console.log(data.data);
+                    self.showItems = data.data;
+                },
+                error:function(xhr,status,error){
+                    console.log(xhr);
+                    console.log(xhr.status);
+                    console.log(error);
+                }
+            });
+            $.ajax({
+                url: self.ip+"api/financing/getFinancingByUserAndStatus",
+                type: 'POST',
+                headers:{
+                    "Content-Type":"application/json",
+                    "token":self.token
+                },
+                data:JSON.stringify({
+                    "status":4
+                }),
+                success: function (data) {
+                    console.log(data.data);
+                    self.showItems.push(data.data);
+                    console.log(self.showItems)
+                },
+                error:function(xhr,status,error){
+                    console.log(xhr);
+                    console.log(xhr.status);
+                    console.log(error);
+                }
             })
-        }
-        //否则读取浏览器缓存
-        else {
-            console.log("getting localStorage");
-            this.showItems = getLocalStorage(this.page);
-        }
+        });
     },
     methods:{
-        judgeData:function(json){
-            var length = 0;
-            if (json==null)
-            {
-                alert("输入不合法");
-                return false;
-            }
-            for( var key in json ){
-                length++;
-                if (json[key]==""||json[key]==null) {
-                    alert("输入不合法");
-                    return false;
-                }
-            }
-            if (length==0){
-                return false;
-                alert("输入不合法");
-            }
-            return true;
-        },
-        showFillInfo: function(index) {
-            this.index = index;
-            this.selected =JSON.parse(JSON.stringify(this.showItems[index]));
-            console.log(this.selected);
-            this.show = true;
-            console.log(this.show);
-        },
-        hideFillInfo_add: function() {
-            document.getElementById("bcFillInfoMask_add").style.visibility="hidden";
-        },
-        cancel:function () {
-            this.index = -1;
-            this.selected = null;
-            this.show = false;
-        },
-        confirm:function () {
-            if (this.judgeData(this.selected)){
-                this.showItems[this.index] = this.selected;
-                console.log(this.showItems);
-                storeJson(this.showItems,this.page);
-                this.index = -1;
-                this.selected = null;
-                this.show = false;
-            }
-        },
-        add_confirm:function () {
-            if (this.judgeData(this.todo)) {
-                this.showItems.push(this.todo);
-                storeJson(this.showItems, this.page);
-                this.index = -1;
-                this.todo = null;
-                this.show = false;
-            }
-        },
-        deleteItem:function (index) {
-            this.index = index;
-            this.deleteView = true;
+        search:function () {
 
-        },
-        deleteConfirm:function () {
-            this.selected =JSON.parse(JSON.stringify(this.showItems[this.index]));
-            console.log(this.selected.ID);
-            for (var i = 0; i < this.showItems.length; ++i) {
-                if (this.showItems[i].ID == this.selected.ID) {
-                    this.showItems.splice(i,1);
-                    i--;
-                }
-            }
-            this.deleteView = false;
-            storeJson(this.showItems,this.page);
-            this.index = -1;
-            this.selected = null;
-        },
-        deleteCancel:function () {
-            this.deleteView = false;
-            this.index = -1;
-            this.selected = null;
         }
     }
 });

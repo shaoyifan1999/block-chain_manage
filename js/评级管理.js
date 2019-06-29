@@ -6,54 +6,59 @@ var wrapper = new Vue({
         allItem:[],
         show:false,
         selected:{},
-        index:-1,
+        ip:"http://114.115.240.16/",
+        token:localStorage.getItem("token"),
+        role:localStorage.getItem("role"),index:-1,
         todo:{},
         page:"evaluation",
         dataUrl:"data/评级管理.json",
-        deleteView:false
+        autoPassView:false
     },
     created:function() {
         document.getElementById("bcFillInfoMask").style.visibility="visible";
     },
     mounted:function () {
-        console.log("creating");
         var self = this;
-        var url = this.dataUrl;
-        //如果没有读取过Json文件，那么获取本地文件的JSON数据并通过promise的异步操作，双向绑定到items中,并储存到LocalStorage
-        if (getLocalStorage(this.page)===null) {
-            getFileData(url).then(function (res) {
-                console.log(res);
-                self.showItems = res.data;
-                //储存到LocalStorage中
-                storeJson(res.data,self.page);
-            }).catch(function (err) {
-                console.log(err);
+        $(document).ready(function() {
+            $.ajax({
+                url: self.ip+"api/user/getAllSuppliers",
+                type: 'get',
+                success: function (res) {
+                    var data = res.data;
+                    console.log(data);
+                    for(var i = 0;i< data.length;i++){
+                        if (!data[i].profile.rank) {
+                            data[i].profile.rank = "无";
+                        }
+                        if(!data[i].profile.applied ){
+                            data[i].profile.applied = 0;
+                        }
+                        if(!data[i].profile.approved ){
+                            data[i].profile.approved = 0;
+                        }
+                    }
+                    self.showItems = data;
+                },
+                fail: function (res) {
+                    console.log(res)
+                }
             })
-        }
-        //否则读取浏览器缓存
-        else {
-            console.log("getting localStorage");
-            this.showItems = getLocalStorage(this.page);
-        }
+        });
     },
     methods:{
         judgeData:function(json){
-            var length = 0;
+            if(json.profile.rank==null||json.profile.rank==""){
+                alert("输入不合法");
+                return false;
+            }
+            if(isNaN(parseInt(json.profile.approved,10))){
+                alert("输入不合法");
+                return false;
+            }
             if (json==null)
             {
                 alert("输入不合法");
                 return false;
-            }
-            for( var key in json ){
-                length++;
-                if (json[key]==""||json[key]==null) {
-                    alert("输入不合法");
-                    return false;
-                }
-            }
-            if (length==0){
-                return false;
-                alert("输入不合法");
             }
             return true;
         },
@@ -64,56 +69,62 @@ var wrapper = new Vue({
             this.show = true;
             console.log(this.show);
         },
-        hideFillInfo_add: function() {
-            document.getElementById("bcFillInfoMask_add").style.visibility="hidden";
-        },
         cancel:function () {
             this.index = -1;
             this.selected = null;
             this.show = false;
         },
         confirm:function () {
+            console.log(this.selected);
             if (this.judgeData(this.selected)){
                 this.showItems[this.index] = this.selected;
                 console.log(this.showItems);
-                storeJson(this.showItems,this.page);
+                this.updateRank();
                 this.index = -1;
                 this.selected = null;
                 this.show = false;
             }
         },
-        add_confirm:function () {
-            if (this.judgeData(this.todo)) {
-                this.showItems.push(this.todo);
-                storeJson(this.showItems, this.page);
-                this.index = -1;
-                this.todo = null;
-                this.show = false;
-            }
-        },
-        deleteItem:function (index) {
-            this.index = index;
-            this.deleteView = true;
-
-        },
-        deleteConfirm:function () {
-            this.selected =JSON.parse(JSON.stringify(this.showItems[this.index]));
-            console.log(this.selected.ID);
-            for (var i = 0; i < this.showItems.length; ++i) {
-                if (this.showItems[i].ID == this.selected.ID) {
-                    this.showItems.splice(i,1);
-                    i--;
+        updateRank:function () {
+            var self = this;
+            var sendData = self.showItems[self.index];
+            sendData.rank = sendData.profile.rank;
+            sendData.money = sendData.profile.approved;
+            sendData = JSON.stringify(sendData);
+            $.ajax({
+                url: self.ip+"api/credit/rank",
+                type: 'POST',
+                headers:{
+                    "Content-Type":"application/json",
+                    "token":self.token
+                },
+                data:sendData,
+                success: function (data) {
+                    console.log(data)
+                },
+                error:function(xhr,status,error){
+                    console.log(xhr);
+                    console.log(xhr.status);
+                    console.log(error);
                 }
-            }
-            this.deleteView = false;
-            storeJson(this.showItems,this.page);
-            this.index = -1;
-            this.selected = null;
-        },
-        deleteCancel:function () {
-            this.deleteView = false;
-            this.index = -1;
-            this.selected = null;
+            });
+            $.ajax({
+                url: self.ip+"api/credit/approve",
+                type: 'POST',
+                headers:{
+                    "Content-Type":"application/json",
+                    "token":self.token
+                },
+                data:sendData,
+                success: function (data) {
+                    console.log(data)
+                },
+                error:function(xhr,status,error){
+                    console.log(xhr);
+                    console.log(xhr.status);
+                    console.log(error);
+                }
+            })
         }
     }
 });

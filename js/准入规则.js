@@ -7,34 +7,31 @@ var wrapper = new Vue({
         show:false,
         selected:{},
         index:-1,
+        ip:"http://114.115.240.16/",
+        token:localStorage.getItem("token"),
+        role:localStorage.getItem("role"),
         todo:{},
-        page:"rules",
-        dataUrl:"data/准入规则.json",
         deleteView:false
     },
     created:function() {
         document.getElementById("bcFillInfoMask").style.visibility="visible";
     },
     mounted:function () {
-        console.log("creating");
         var self = this;
-        var url = this.dataUrl;
-        //如果没有读取过Json文件，那么获取本地文件的JSON数据并通过promise的异步操作，双向绑定到items中,并储存到LocalStorage
-        if (getLocalStorage(this.page)===null) {
-            getFileData(url).then(function (res) {
-                console.log(res);
-                self.showItems = res.data;
-                //储存到LocalStorage中
-                storeJson(res.data,self.page);
-            }).catch(function (err) {
-                console.log(err);
+        $(document).ready(function() {
+            $.ajax({
+                url: self.ip+"api/access/getAllAccessRules",
+                type: 'get',
+                success: function (res) {
+                    var data = res.data;
+                    console.log(data);
+                    self.showItems = data;
+                },
+                fail: function (res) {
+                    console.log(res)
+                }
             })
-        }
-        //否则读取浏览器缓存
-        else {
-            console.log("getting localStorage");
-            this.showItems = getLocalStorage(this.page);
-        }
+        });
     },
     methods:{
         judgeData:function(json){
@@ -76,16 +73,61 @@ var wrapper = new Vue({
             if (this.judgeData(this.selected)){
                 this.showItems[this.index] = this.selected;
                 console.log(this.showItems);
-                storeJson(this.showItems,this.page);
+                this.updateRule();
                 this.index = -1;
                 this.selected = null;
                 this.show = false;
             }
         },
+        updateRule:function(){
+            var self = this;
+            let sendData = self.showItems[self.index];
+            sendData = JSON.stringify(sendData);
+            $.ajax({
+                url: self.ip+"api/access/updateAccessRule",
+                type: 'POST',
+                headers:{
+                    "Content-Type":"application/json",
+                    "token":self.token
+                },
+                data:sendData,
+                success: function (data) {
+                    console.log(data)
+                },
+                error:function(xhr,status,error){
+                    console.log(xhr);
+                    console.log(xhr.status);
+                    console.log(error);
+                }
+            })
+        },
+        addRule:function(){
+            var self = this;
+            let sendData = self.todo;
+            console.log(sendData);
+            $.ajax({
+                url: self.ip+"api/access/insertAccessRule",
+                type: 'POST',
+                headers:{
+                    "Content-Type":"application/json",
+                    "token":self.token
+                },
+                data:JSON.stringify(sendData),
+                success: function (data) {
+                    console.log(data)
+                },
+                error:function(xhr,status,error){
+                    console.log(xhr);
+                    console.log(xhr.status);
+                    console.log(error);
+                }
+            })
+        },
         add_confirm:function () {
             if (this.judgeData(this.todo)) {
+                console.log(this.todo.content);
                 this.showItems.push(this.todo);
-                storeJson(this.showItems, this.page);
+                this.addRule();
                 this.index = -1;
                 this.todo = null;
                 this.show = false;
@@ -94,19 +136,41 @@ var wrapper = new Vue({
         deleteItem:function (index) {
             this.index = index;
             this.deleteView = true;
-
+        },
+        deleteRule:function(id){
+            var self = this;
+            console.log(id);
+            $.ajax({
+                url: self.ip+"api/access/deleteAccessRule",
+                type: 'POST',
+                headers:{
+                    "Content-Type":"application/json",
+                    "token":self.token
+                },
+                data:JSON.stringify({
+                    "id":id
+                }),
+                success: function (data) {
+                    console.log(data)
+                },
+                error:function(xhr,status,error){
+                    console.log(xhr);
+                    console.log(xhr.status);
+                    console.log(error);
+                }
+            })
         },
         deleteConfirm:function () {
             this.selected =JSON.parse(JSON.stringify(this.showItems[this.index]));
-            console.log(this.selected.ID);
+            console.log(this.selected.id);
+            this.deleteRule(this.selected.id);
             for (var i = 0; i < this.showItems.length; ++i) {
-                if (this.showItems[i].ID == this.selected.ID) {
+                if (this.showItems[i].id == this.selected.id) {
                     this.showItems.splice(i,1);
                     i--;
                 }
             }
             this.deleteView = false;
-            storeJson(this.showItems,this.page);
             this.index = -1;
             this.selected = null;
         },

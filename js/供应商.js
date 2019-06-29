@@ -8,111 +8,116 @@ var wrapper = new Vue({
         selected:{},
         index:-1,
         todo:{},
+        key:"id",
+        value:"",
+        ip:"http://114.115.240.16/",
+        token:localStorage.getItem("token"),
+        role:localStorage.getItem("role"),
         page:"supplier",
         dataUrl:"data/供应商.json",
-        deleteView:false
-    },
-    created:function() {
-        document.getElementById("bcFillInfoMask").style.visibility="visible";
+        freezeView:false
     },
     mounted:function () {
-        console.log("creating");
-        var self = this;
-        var url = this.dataUrl;
-        //如果没有读取过Json文件，那么获取本地文件的JSON数据并通过promise的异步操作，双向绑定到items中,并储存到LocalStorage
-        if (getLocalStorage(this.page)===null) {
-            getFileData(url).then(function (res) {
-                console.log(res);
-                self.showItems = res.data;
-                //储存到LocalStorage中
-                console.log(self.page);
-                storeJson(res.data,self.page);
-            }).catch(function (err) {
-                console.log(err);
-            })
-        }
-        //否则读取浏览器缓存
-        else {
-            console.log("getting localStorage");
-            this.showItems = getLocalStorage(this.page);
-        }
+        this.init();
     },
     methods:{
-        judgeData:function(json){
-            var length = 0;
-            if (json==null)
-            {
-                alert("输入不合法");
-                return false;
+        init:function(){
+            var self = this;
+            $(document).ready(function() {
+                $.ajax({
+                    url: self.ip+"api/user/getAllSuppliers",
+                    type: 'get',
+                    success: function (res) {
+                        var data = res.data;
+                        console.log(data);
+                        self.showItems = data;
+                    },
+                    fail: function (res) {
+                        console.log(res)
+                    }
+                })
+            });
+        },
+        search:function(){
+            console.log(this.value);
+            console.log(this.value=="");
+            if (this.value==""){
+                this.init();
+                return;
             }
-            for( var key in json ){
-                length++;
-                if (json[key]==""||json[key]==null) {
-                    alert("输入不合法");
-                    return false;
+            var self = this;
+            var url="api/user/getUserById";
+            var key = 'id';
+            if (this.key==='email'){
+                key = 'email';
+                url = 'api/user/getUserByEmail'
+            }
+            $.ajax({
+                url: self.ip+url,
+                type: 'POST',
+                headers:{
+                    "Content-Type":"application/json",
+                    "token":self.token
+                },
+                data:JSON.stringify({
+                    [key]: self.value
+                }),
+                success: function (data) {
+                    if (data.status===0){
+                        if (self.key=='id')
+                            alert("不存在的用户ID");
+                        else
+                            alert("不存在的注册邮箱");
+                    }
+                    else {
+                        self.showItems = [data.data];
+                        console.log(data)
+                    }
+                },
+                error:function(xhr,status,error){
+                    console.log(xhr);
+                    console.log(xhr.status);
+                    console.log(error);
                 }
-            }
-            if (length==0){
-                return false;
-                alert("输入不合法");
-            }
-            return true;
+            })
         },
-        showFillInfo: function(index) {
+        showFreeze:function (index) {
             this.index = index;
-            this.selected =JSON.parse(JSON.stringify(this.showItems[index]));
-            console.log(this.selected);
-            this.show = true;
-            console.log(this.show);
+            this.freezeView = true;
         },
-        hideFillInfo_add: function() {
-            document.getElementById("bcFillInfoMask_add").style.visibility="hidden";
+        freeze:function(){
+            var self = this;
+            var data = this.selected;
+            $.ajax({
+                url: self.ip+"api/user/setFrozen",
+                type: 'POST',
+                headers:{
+                    "Content-Type":"application/json",
+                    "token":self.token
+                },
+                data:JSON.stringify(data),
+                success: function (data) {
+                    console.log(data)
+                },
+                error:function(xhr,status,error){
+                    console.log(xhr);
+                    console.log(xhr.status);
+                    console.log(error);
+                }
+            })
         },
-        cancel:function () {
-            this.index = -1;
-            this.selected = null;
-            this.show = false;
-        },
-        confirm:function () {
-            if (this.judgeData(this.selected)){
-                this.showItems[this.index] = this.selected;
-                console.log(this.showItems);
-                storeJson(this.showItems,this.page);
-                this.index = -1;
-                this.selected = null;
-                this.show = false;
-            }
-        },
-        add_confirm:function () {
-            if (this.judgeData(this.todo)) {
-                this.showItems.push(this.todo);
-                storeJson(this.showItems, this.page);
-                this.index = -1;
-                this.todo = null;
-                this.show = false;
-            }
-        },
-        deleteItem:function (index) {
-            this.index = index;
-            this.deleteView = true;
-
-        },
-        deleteConfirm:function () {
+        freezeConfirm:function () {
             this.selected =JSON.parse(JSON.stringify(this.showItems[this.index]));
-            console.log(this.selected.ID);
-            for (var i = 0; i < this.showItems.length; ++i) {
-                if (this.showItems[i].ID == this.selected.ID) {
-                    this.showItems.splice(i,1);
-                    i--;
-                }
-            }
-            this.deleteView = false;
-            storeJson(this.showItems,this.page);
+            console.log(this.selected);
+            this.selected.frozen = ((parseInt(this.selected.frozen)+1)%2);
+            this.freezeView = false;
+            this.showItems[this.index] = this.selected;
+            this.freeze();
             this.index = -1;
             this.selected = null;
         },
-        deleteCancel:function () {
-            this.deleteView = false;
+        freezeCancel:function () {
+            this.freezeView = false;
             this.index = -1;
             this.selected = null;
         }
